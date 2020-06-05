@@ -33,5 +33,12 @@ class RolesSeeder extends Seeder
             'icon' => 'fas fa-user-tie',
             'variant' => 'info',
         ]);
+        $admin->createMenu([
+            'code' => 'tipos_auditoria',
+            'name' => 'Tipos Auditoria',
+            'path' => '/tipos_auditoria',
+            'icon' => 'fas fa-book',
+            'variant' => 'info',
+        ]);
     }
 }
