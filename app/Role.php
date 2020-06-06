@@ -26,5 +26,11 @@ class Role extends Model
             'menu_id' => $menu->getKey(),
         ]);
     }
+
+    public function todosRoles()
+    {
+        $result = Role::pluck('role')->toArray();
+        return $result;
+    }
 }
 
