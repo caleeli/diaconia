@@ -38,7 +38,7 @@ export default {
   name: "Usuarios",
   path: "/users",
   mixins: [window.ResourceMixin],
-  data: function() {
+  data() {
     return {
       user: {},
       api: this.$api.user,
