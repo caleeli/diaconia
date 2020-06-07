@@ -1,9 +1,6 @@
 <?php
 
-use App\Menu;
-use App\MenuRole;
 use App\Role;
-use App\User;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
@@ -31,6 +28,13 @@ class RolesSeeder extends Seeder
             'name' => 'Roles',
             'path' => '/roles',
             'icon' => 'fas fa-user-tie',
+            'variant' => 'info',
+        ]);
+        $administrador->createMenu([
+            'code' => 'tipos_auditoria',
+            'name' => 'Tipos Auditoria',
+            'path' => '/plantillas',
+            'icon' => 'fas fa-book',
             'variant' => 'info',
         ]);
 
