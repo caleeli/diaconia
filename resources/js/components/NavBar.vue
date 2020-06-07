@@ -3,8 +3,29 @@
     <div class="btn-group text-nowrap mr-2" role="group">
       <slot />
       <router-link to="/" class="btn btn-warning"><i class="fas fa-home"></i> {{ __('Home') }}</router-link>
-      <router-link v-for="menu in $root.menus" :key="`menu-${menu.id}`"
-        :to="menu.path" :class="`btn btn-${menu.variant}`"><i :class="menu.icon"></i> {{ __(menu.name) }}</router-link>
+      <template v-for="menu in $root.menus">
+        <router-link v-if="menu.path" :key="`menu-${menu.id}`"
+          :to="menu.path" :class="`btn btn-${menu.variant}`"><i :class="menu.icon"></i> {{ __(menu.name) }}</router-link>
+        <b-dropdown
+          v-else
+          :key="`menu-${menu.id}`"
+          :variant="menu.variant"
+          right
+        >
+          <template slot="button-content">
+            <i :class="menu.icon"></i>
+            {{ __(menu.name) }}
+          </template>
+          <b-dropdown-item
+            v-for="submenu in menu.menus"
+            :key="`menu-${menu.id}-${submenu.id}`"
+            :variant="submenu.variant"
+          >
+            <router-link :key="`menu-${submenu.id}`"
+              :to="submenu.path"><i :class="submenu.icon"></i> {{ __(submenu.name) }}</router-link>
+          </b-dropdown-item>
+        </b-dropdown>
+      </template>
     </div>
     <b-button class="mr-2" :variant="isEnabled() ? 'primary' : 'outline-primary'" @click="requestNotificationAccess">
       <i v-if="isEnabled()" class="fas fa-bell"></i>

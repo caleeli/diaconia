@@ -63,7 +63,18 @@ const app = new Vue({
                 }
             }
         ).then(response => {
-            this.$set(this, 'menus', response.data.response);
+            const menus = response.data.response.filter(menu => {
+                menu.menus = [];
+                return !menu.parent;
+            });
+            response.data.response.forEach(menu => {
+                if (menu.parent) {
+                    console.log(menus, JSON.stringify([menu.parent, menus[2].id]), menu.parent === menus[2].id);
+                    const parent = menus.find(m => m.id === menu.parent);
+                    parent.menus.push(menu);
+                }
+            });
+            this.$set(this, 'menus', menus);
             return response;
         });
     },
