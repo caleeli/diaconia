@@ -13,11 +13,6 @@
       >
         <role :role="role" />
       </b-tab>
-      <!--template slot="tabs-end">
-        <div class="flex-grow-1 text-right">
-          <b-button variant="primary"><i class="fa fa-plus"></i> {{ __('Role') }}</b-button>
-        </div>
-      </template -->
     </b-tabs>
   </panel>
 </template>

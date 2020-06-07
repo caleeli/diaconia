@@ -27,16 +27,5 @@ trait HasMenus
     public function allMenus()
     {
         return $this->roleObject->menus;
-        $menu = new Menu();
-        $all = $menu->populateChildren([], $this);
-        foreach($this->menus as $menu) {
-            $all[] = [
-                'id' => $menu->id,
-                'parent' => $menu->parent_id,
-                'name' => $menu->name,
-            ];
-            $all = $menu->populateChildren($all, $this);
-        }
-        return $all;
     }
 }

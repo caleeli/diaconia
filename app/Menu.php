@@ -8,6 +8,10 @@ class Menu extends Model
 {
     protected $guarded = [];
 
+    protected $casts = [
+        'parent' => 'int',
+    ];
+
     private static $childrenCallbacks = [];
 
     /**

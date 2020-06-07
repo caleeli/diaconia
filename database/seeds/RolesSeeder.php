@@ -30,7 +30,15 @@ class RolesSeeder extends Seeder
             'icon' => 'fas fa-user-tie',
             'variant' => 'info',
         ]);
+        $configuracion = $administrador->createMenu([
+            'code' => 'configuracion',
+            'name' => 'Configuración',
+            'path' => '',
+            'icon' => 'fas fa-cogs',
+            'variant' => 'info',
+        ]);
         $administrador->createMenu([
+            'parent' => $configuracion->getKey(),
             'code' => 'tipos_auditoria',
             'name' => 'Tipos Auditoria',
             'path' => '/plantillas',

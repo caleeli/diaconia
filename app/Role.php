@@ -21,7 +21,7 @@ class Role extends Model
     public function createMenu(array $data)
     {
         $menu = Menu::create($data);
-        MenuRole::create([
+        return MenuRole::create([
             'role' => $this->role,
             'menu_id' => $menu->getKey(),
         ]);
