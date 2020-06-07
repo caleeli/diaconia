@@ -6,33 +6,41 @@
     <template slot="actions">
       <nav-bar />
     </template>
-    <tabla ref="preguntas"
-      :fields="fields" :form-fields="formFields" :api="api" title="Pregunta"
-      :inline="true"
-      :params="{ per_page: -1, sort:'grupo,indice' }"
-      @change="refreshTable"
-      :search-in="['attributes.grupo', 'attributes.indice', 'attributes.descripcion']"
-      readonly
-    >
-      <template slot="toolbar">
-        <router-link class="btn btn-primary" :to="`/plantilla/${plantilla.id}`"><i class="fas fa-list"></i> {{ __('Editar') }}</router-link>
-      </template>
-      <template v-slot:cell(revision)="data">
-        <select-model :api="$api.combo_revision" v-model="data.item.revision" />
-      </template>
-      <template v-slot:cell(clasificacion)="data">
-        <select-model :api="$api.combo_clasificacion" v-model="data.item.clasificacion" searchable />
-      </template>
-      <template v-slot:cell(observacion)="data">
-        <b-form-textarea v-model="data.item.observacion" />
-      </template>
-      <template v-slot:cell(tipo_observacion)="data">
-        <select-model :api="$api.combo_tipo_informe" v-model="data.item.tipo_observacion" />
-      </template>
-      <template v-slot:cell(riesgo_adicional)="data">
-        <select-model :api="$api.combo_riesgo" v-model="data.item.riesgo_adicional" />
-      </template>
-    </tabla>
+    <b-table-simple>
+      <b-tbody>
+        <b-tr v-for="pregunta in preguntas" :key="`pregunta-${pregunta.id}`">
+          <b-td v-if="pregunta.attributes.indice">
+            {{ pregunta.attributes.indice }}
+          </b-td>
+          <b-td :colspan="pregunta.attributes.indice ? 1 : 8">
+            {{ pregunta.attributes.descripcion }}
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <b-form-input
+              v-model="pregunta.revision"></b-form-input>
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <select-model :api="$api.combo_revision" v-model="pregunta.revision" />
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <select-model
+              :api="$api.combo_clasificacion" v-model="pregunta.clasificacion" searchable />
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <b-form-textarea
+              v-model="pregunta.observacion" />
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <select-model
+              :api="$api.combo_tipo_informe" v-model="pregunta.tipo_observacion" />
+          </b-td>
+          <b-td v-if="pregunta.attributes.indice">
+            <select-model
+              :api="$api.combo_riesgo" v-model="pregunta.riesgo_adicional" />
+          </b-td>
+        </b-tr>
+      </b-tbody>
+    </b-table-simple>
   </panel>
 </template>
 
@@ -43,6 +51,7 @@ export default {
   data() {
     return {
       plantilla: this.$api.plantilla.row(this.$route.params.id),
+      preguntas: this.$api[`plantilla/${this.$route.params.id}/preguntas`].array({ per_page: -1, sort:'grupo,indice' }),
       api: this.$api[`plantilla/${this.$route.params.id}/preguntas`],
       fields: [
         //{key:'attributes.grupo', label: 'Grupo'},
