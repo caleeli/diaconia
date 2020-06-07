@@ -2,7 +2,7 @@
   <div>
     <tabla :fields="fields" :form-fields="formFields" :api="api" :title="__('Role')"
       :search-in="['attributes.name']"
-      :params="{order_by:'parent,id'}"
+      :params="{sort:'id'}"
     >
       <template v-slot:cell(id)="data">
         {{ data.item.attributes.parent ? `${data.item.attributes.parent}.${data.item.id}` : data.item.id }}
@@ -25,7 +25,6 @@ export default {
       user: {},
       api: this.$api[`role/${this.role.id}/menus`],
       fields: [
-        {key:'id', label: '#'},
         {key:'attributes.code', label: 'Código'},
         {key:'attributes.name', label: 'Nombre'},
         {key:'attributes.icon', label: 'Icono' },

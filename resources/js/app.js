@@ -69,7 +69,6 @@ const app = new Vue({
             });
             response.data.response.forEach(menu => {
                 if (menu.parent) {
-                    console.log(menus, JSON.stringify([menu.parent, menus[2].id]), menu.parent === menus[2].id);
                     const parent = menus.find(m => m.id === menu.parent);
                     parent.menus.push(menu);
                 }
