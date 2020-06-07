@@ -46,6 +46,15 @@ class RolesSeeder extends Seeder
             'variant' => 'info',
         ]);
 
+        $administrador->createMenu([
+            'parent' => $configuracion->getKey(),
+            'code' => 'sucursales',
+            'name' => 'Sucursales',
+            'path' => '/sucursales',
+            'icon' => 'far fa-building',
+            'variant' => 'info',
+        ]);
+
         // Auditores Role
         $auditor = Role::create([
             'role' => 'Auditores',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComboSucursalTable extends Migration
+class CreateSucursalesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateComboSucursalTable extends Migration
      */
     public function up()
     {
-        Schema::create('combo_sucursal', function (Blueprint $table) {
+        Schema::create('sucursales', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('valor', 32);
             $table->string('descripcion');
@@ -28,6 +28,6 @@ class CreateComboSucursalTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('combo_sucursal');
+        Schema::dropIfExists('sucursales');
     }
 }
