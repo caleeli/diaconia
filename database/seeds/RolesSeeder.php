@@ -36,7 +36,7 @@ class RolesSeeder extends Seeder
         $admin->createMenu([
             'code' => 'tipos_auditoria',
             'name' => 'Tipos Auditoria',
-            'path' => '/tipos_auditoria',
+            'path' => '/plantillas',
             'icon' => 'fas fa-book',
             'variant' => 'info',
         ]);
