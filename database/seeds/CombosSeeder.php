@@ -5,7 +5,7 @@ use App\ComboCalidad;
 use App\ComboClasificacion;
 use App\ComboLugarVisita;
 use App\ComboRiesgo;
-use App\ComboSucursal;
+use App\Sucursales;
 use App\ComboTipoInforme;
 use App\ComboVisita;
 use Illuminate\Database\Seeder;
@@ -116,7 +116,7 @@ class CombosSeeder extends Seeder
             ['valor' => 'RA', 'descripcion' => 'RA'],
             ['valor' => 'CI', 'descripcion' => 'CI'],
         ]);
-        ComboSucursal::insert([
+        Sucursales::insert([
             ['valor' => 'CBBA', 'descripcion' => 'CBBA'],
             ['valor' => 'LA PAZ', 'descripcion' => 'LA PAZ'],
             ['valor' => 'OF NACIONAL', 'descripcion' => 'OF NACIONAL'],
