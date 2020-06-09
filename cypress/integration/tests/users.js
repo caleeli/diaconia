@@ -7,6 +7,7 @@ context('Perfil de Usuario', () => {
 
     it('Lista de usuarios', () => {
         cy.get('[data-cy="menu.users"]').click();
+        cy.wait("@api_get");
         cy.get('[data-cy="tabla.input.search"]').clear().type('admin');
         cy.get('[data-cy="tabla.search"]').click();
         cy.wait("@api_get");
@@ -16,6 +17,10 @@ context('Perfil de Usuario', () => {
     it('Crear Editar usuario', () => {
         // Crear usuario test
         cy.get('[data-cy="menu.users"]').click();
+        cy.wait("@api_get");
+        // Espera a que se cargue el listado de todosRoles
+        cy.wait("@api_post");
+        // Click en boton new "Nuevo"
         cy.get('[data-cy="tabla.new"]').click();
         cy.get('[data-cy="field.attributes.name"]').type('test');
         cy.get('[data-cy="field.attributes.email"]').type('test@coredump.com');
@@ -46,6 +51,9 @@ context('Perfil de Usuario', () => {
         // Cambiar password
         cy.get('[data-cy="tabla.row.change.password"]').click();
         cy.get('[data-cy="field.attributes.password"]').clear().type('12345678');
+        cy.get('[data-cy="field.confirm_password"]').clear().type('123456');
+        cy.get('button.btn').contains('Guardar').click();
+        cy.get('[data-cy="form.status"]').should('contain', 'no coinciden');
         cy.get('[data-cy="field.confirm_password"]').clear().type('12345678');
         cy.get('button.btn').contains('Guardar').click();
         // espera a que se guarde el registro

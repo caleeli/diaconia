@@ -14,9 +14,7 @@ context('Perfil de Usuario', () => {
         });
         cy.wait("@uploaded");
         cy.get('[data-cy="submit"]').click();
-        cy.get('[data-cy="form.status"]').should((status) => {
-            expect(status.first()).to.contain('Los cambios se guardaron correctamente');
-        });
+        cy.get('[data-cy="form.status"]').should('contain', 'Los cambios se guardaron correctamente');
         cy.get('[data-cy="navbar.profile"] .jdd-avatar-circle-image').should((avatar) => {
             expect(avatar).to.have.attr('src').match(/avatar\.jpeg$/);
         });
