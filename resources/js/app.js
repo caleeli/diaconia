@@ -48,11 +48,6 @@ const app = new Vue({
             user: this.$api.user.row(window.userId),
         };
     },
-    computed: {
-        isAdmin() {
-            return this.user.id === 1;
-        },
-    },
     mounted() {
         window.axios.post(
             `user/${window.userId}`,

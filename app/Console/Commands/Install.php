@@ -37,5 +37,6 @@ class Install extends Config
         }
         Artisan::call('migrate:fresh', ['--seed' => true]);
         Artisan::call('passport:install');
+        Artisan::call('storage:link');
     }
 }

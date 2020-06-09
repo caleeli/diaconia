@@ -4,7 +4,7 @@
     <div class="form-group">
       <div class="d-inline-block">
         <upload v-model="value.attributes.avatar" @change="updateAvatar">
-          <button type="button" class="btn btn-primary">Cambiar imagen</button>
+          <button type="button" class="btn btn-primary" :data-cy="`field.${field.key}`">Cambiar imagen</button>
         </upload>
       </div>
     </div>
@@ -16,7 +16,7 @@
     :state="state"
     :invalid-feedback="feedback"
   >
-    <component :is="field.component" v-bind="field.properties" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
+    <component :is="field.component" v-bind="field.properties" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
   <b-form-group
     v-else
@@ -25,7 +25,7 @@
     :state="state"
     :invalid-feedback="feedback"
   >
-    <b-form-input class="form-control" :type="field.type || 'text'" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
+    <b-form-input class="form-control" :type="field.type || 'text'" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
 </template>
 
