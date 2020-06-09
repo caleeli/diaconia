@@ -7,6 +7,7 @@ use App\Traits\ModelValidation;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use JDD\Api\Traits\AjaxFilterTrait;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -15,6 +16,7 @@ class User extends Authenticatable
     use HasMenus;
     use Notifiable;
     use ModelValidation;
+    use AjaxFilterTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -26,7 +28,6 @@ class User extends Authenticatable
     ];
 
     protected $attributes = [
-        'role' => 'admin',
     ];
 
     /**
@@ -63,8 +64,8 @@ class User extends Authenticatable
     public function validation()
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|unique:users,name,' . $this->id,
+            'email' => 'required|email|unique:users,email,' . $this->id,
             'password' => 'required',
             'role' => 'required',
         ];

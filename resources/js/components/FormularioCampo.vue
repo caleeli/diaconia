@@ -14,7 +14,8 @@
     :label="withoutLabel ? '': field.label"
     label-size="sm"
     :state="state"
-    :invalid-feedback="feedback"
+    :invalid-feedback="invalidFeedback"
+    :data-cy="`fieldset.${field.key}`" 
   >
     <component :is="field.component" v-bind="field.properties" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
@@ -23,7 +24,8 @@
     :label="withoutLabel ? '': field.label"
     label-size="sm"
     :state="state"
-    :invalid-feedback="feedback"
+    :invalid-feedback="invalidFeedback"
+    :data-cy="`fieldset.${field.key}`" 
   >
     <b-form-input class="form-control" :type="field.type || 'text'" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
@@ -37,7 +39,7 @@ export default {
     field: Object,
     value: Object,
     state: Boolean,
-    feedback: String,
+    invalidFeedback: String,
     withoutLabel: Boolean,
   },
   methods: {

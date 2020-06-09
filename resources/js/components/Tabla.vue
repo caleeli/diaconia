@@ -2,9 +2,9 @@
   <div>
     <div class="d-flex">
       <b-input-group :class="{invisible: !searchIn}">
-        <b-form-input :lazy="true" v-model="searchValue" size="sm" @change="search"></b-form-input>
+        <b-form-input :lazy="true" v-model="searchValue" size="sm" @change="search" data-cy="tabla.input.search"></b-form-input>
         <b-input-group-append>
-          <b-button variant="outline-secondary" @click="search">{{ __('search') }}</b-button>
+          <b-button variant="outline-secondary" @click="search" data-cy="tabla.search">{{ __('search') }}</b-button>
         </b-input-group-append>
       </b-input-group>
       <b-input-group v-if="params.per_page!==-1" style="width: 22em;">
@@ -20,7 +20,7 @@
         </b-input-group-append>
       </b-input-group>
     </div>
-    <b-table :items="value" :fields="fields">
+    <b-table :items="value" :fields="fields" data-cy="tabla.table">
       <template v-slot:cell()="data">
         <slot v-if="hasSlot(`cell(${data.field.key})`)" :name="`cell(${data.field.key})`" v-bind="data" :update="update"></slot>
         <formulario-campo v-else-if="inline && data.item.edit"
@@ -41,18 +41,18 @@
       <template v-slot:head(actions)="">
         <div class="w-100 text-right">
           <slot name="toolbar"></slot>
-          <b-button v-if="!readonly" variant="primary" @click="loadData"><i class="fas fa-sync"></i></b-button>
-          <b-button v-if="!readonly" variant="primary" @click="nuevo"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
+          <b-button v-if="!readonly" variant="primary" @click="loadData" data-cy="tabla.refresh"><i class="fas fa-sync"></i></b-button>
+          <b-button v-if="!readonly" variant="primary" @click="nuevo" data-cy="tabla.new"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
         </div>
       </template>
       <template v-slot:cell(actions)="data">
         <div class="w-100 text-right">
           <div class="btn-group text-nowrap" role="group">
             <slot name="actions" v-bind="data"></slot>
-            <b-button v-if="!inline" variant="primary" @click="editar(data.item)"><i class="fas fa-pen"></i></b-button>
-            <b-button v-else-if="!data.item.edit" variant="primary" @click="editarInline(data.item)"><i class="fas fa-pen"></i></b-button>
-            <b-button v-else variant="primary" @click="guardarInline(data.item)"><i class="fas fa-save"></i></b-button>
-            <b-button variant="danger" @click="eliminar(data.item)"><i class="fas fa-times"></i></b-button>
+            <b-button data-cy="tabla.row.edit" v-if="!inline" variant="primary" @click="editar(data.item)"><i class="fas fa-pen"></i></b-button>
+            <b-button data-cy="tabla.row.edit" v-else-if="!data.item.edit" variant="primary" @click="editarInline(data.item)"><i class="fas fa-pen"></i></b-button>
+            <b-button data-cy="tabla.row.save" v-else variant="primary" @click="guardarInline(data.item)"><i class="fas fa-save"></i></b-button>
+            <b-button data-cy="tabla.row.remove" variant="danger" @click="eliminar(data.item)"><i class="fas fa-times"></i></b-button>
           </div>
         </div>
       </template>
@@ -134,13 +134,6 @@ export default {
     };
   },
   methods: {
-    update(row) {
-      this.api.save(row).catch(res => {
-        this.error = res.response.data.message;
-      }).then(() => {
-        this.loadData();
-      });
-    },
     hasSlot(name) {
       return !!this.$scopedSlots[name];
     },
@@ -188,9 +181,6 @@ export default {
       this.error = '';
       this.registro = registro;
       this.$refs.modal.show();
-    },
-    updateAvatar(avatar) {
-      this.registro.attributes.avatar = avatar;
     },
     guardar(bvModalEvt) {
       bvModalEvt.preventDefault();

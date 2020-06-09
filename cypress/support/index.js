@@ -28,4 +28,8 @@ beforeEach(() => {
     // Routes
     cy.server();
     cy.route('post', '/api/uploadfile').as('uploaded');
+    cy.route('get', '/api/data/**').as('api_get');
+    cy.route('post', '/api/data/**').as('api_post');
+    cy.route('put', '/api/data/**').as('api_put');
+    cy.route('delete', '/api/data/**').as('api_delete');
 });
