@@ -55,6 +55,15 @@ class RolesSeeder extends Seeder
             'variant' => 'info',
         ]);
 
+        $administrador->createMenu([
+            'parent' => $configuracion->getKey(),
+            'code' => 'clasificaciones',
+            'name' => 'Clasificaciones',
+            'path' => '/clasificaciones',
+            'icon' => 'fas fa-sitemap',
+            'variant' => 'info',
+        ]);
+
         // Auditores Role
         $auditor = Role::create([
             'role' => 'Auditores',
