@@ -134,6 +134,13 @@ export default {
     };
   },
   methods: {
+    update(row) {
+      this.api.save(row).catch(res => {
+        this.error = res.response.data.message;
+      }).then(() => {
+        this.loadData();
+      });
+    },
     hasSlot(name) {
       return !!this.$scopedSlots[name];
     },
