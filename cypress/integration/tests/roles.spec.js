@@ -1,5 +1,6 @@
 
 context('Roles de usuarios', () => {
+
     beforeEach(() => {
         cy.viewport(1366, 768);
         cy.login('admin@coredump.com', 'admin');
@@ -12,6 +13,7 @@ context('Roles de usuarios', () => {
         cy.get('[data-cy="tabla.input.search"]:visible').clear().type('roles');
         cy.get('[data-cy="tabla.search"]:visible').click();
         cy.wait("@api_get");
+        cy.wait(100);
         cy.get('[data-cy="tabla.table"]:visible').find('tbody tr').should('have.length', 1);
     })
 
@@ -33,10 +35,7 @@ context('Roles de usuarios', () => {
         cy.wait("@api_post");
         cy.wait("@api_get");
         // Verificar que fue creado
-        cy.get('[data-cy="tabla.input.search"]:visible').clear().type('test');
-        cy.get('[data-cy="tabla.search"]:visible').click();
-        // espera a que se obtenga el listado de la API
-        cy.wait("@api_get");
+        cy.buscarEnTabla('test');
         cy.get('[data-cy="tabla.table"]:visible').find('tbody tr').should('have.length', 1);
     })
 
@@ -46,17 +45,26 @@ context('Roles de usuarios', () => {
         cy.get('[data-cy="menu.roles"]').click();
         cy.wait("@api_get");
         // Buscar un menu del rol
-        cy.get('[data-cy="tabla.input.search"]:visible').clear().type('roles');
-        cy.get('[data-cy="tabla.search"]:visible').click();
-        // espera a que se obtenga el listado de la API
-        cy.wait("@api_get");
+        cy.buscarEnTabla('roles');
         // Click en boton editar
         cy.get('[data-cy="tabla.row.edit"]:visible').click();
-        cy.get('[data-cy="field.attributes.parent"]').clear();
+        // Editar datos
         cy.get('[data-cy="field.attributes.code"]').clear();
         cy.get('[data-cy="field.attributes.name"]').clear();
         cy.get('[data-cy="field.attributes.path"]').clear();
         cy.get('button.btn').contains('Guardar').click();
+        cy.wait("@api_put");
+        // Debe dar error
+        cy.get('[data-cy="form.status"] label').should('have.class', 'text-danger');
+        // Editar datos
+        cy.get('[data-cy="field.attributes.code"]').clear().type('prueba');
+        cy.get('[data-cy="field.attributes.name"]').clear().type('prueba');
+        cy.get('[data-cy="field.attributes.path"]').clear().type('/prueba');
+        cy.get('button.btn').contains('Guardar').click();
+        cy.wait("@api_put");
+        // Verificar que fue actualizado
+        cy.buscarEnTabla('prueba');
+        cy.get('[data-cy="tabla.table"]:visible').find('tbody tr').should('have.length', 1);
     })
 
 })

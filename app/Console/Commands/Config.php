@@ -50,6 +50,11 @@ class Config extends Command
         $this->setEnv('BROADCASTER_ID', $broadcasterId);
         $this->setEnv('BROADCASTER_KEY', $broadcasterKey);
 
+        $this->saveCypressConfig([
+            'env' => [
+                'APP_URL' => $appUrl,
+            ]
+        ]);
         // Save laravel-echo-server.json
         $config = [
             'authHost' => $appUrl,
@@ -106,5 +111,20 @@ class Config extends Command
         $config = file_exists('.env') ? file_get_contents('.env') : file_get_contents('.env.example');
         $newConfig = preg_replace('/^\s*' . preg_quote($name) . '\s*=.*$/m', "$name=$value", $config);
         file_put_contents('.env', $newConfig);
+    }
+
+    /**
+     * Save cypress configuration
+     *
+     * @param array $config
+     *
+     * @return array
+     */
+    private function saveCypressConfig(array $config)
+    {
+        $original = json_decode(file_exists('cypress.json') ? file_get_contents('cypress.json') : '{}', true);
+        $merged = array_merge($original, $config);
+        file_put_contents('cypress.json', json_encode((object) $merged, JSON_PRETTY_PRINT));
+        return $original;
     }
 }

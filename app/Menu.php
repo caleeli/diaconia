@@ -58,4 +58,12 @@ class Menu extends Model
     {
         self::$childrenCallbacks[$key][] = $callback;
     }
+
+    public function validation()
+    {
+        return [
+            'code' => 'required',
+            'name' => 'required',
+        ];
+    }
 }
