@@ -8,7 +8,7 @@
         :invalid-feedback="feedback(field.key)"
       />
     </template>
-    <div class="text-right w-100 mt-2">
+    <div class="text-right w-100 mt-2" data-cy="form.status">
       <label class="text-danger" v-if="error">{{ error }}</label>
       <ul class="text-danger font-weight-light" v-for="(error, index) in errorsNotPresent" :key="`error-np-${index}`">
         <li v-for="(label, i) in error" :key="`error-np-${index}-${i}`">{{ label }}</li>

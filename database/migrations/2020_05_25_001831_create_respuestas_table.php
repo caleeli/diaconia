@@ -39,7 +39,7 @@ class CreateRespuestasTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('restrict');
             $table->foreign('pregunta_id')
-                ->references('id')->on('preguntas')
+                ->references('id')->on('plantilla_preguntas')
                 ->onDelete('cascade')
                 ->onUpdate('restrict');
         });

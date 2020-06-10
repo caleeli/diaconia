@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use StdClass;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class UploadFileController extends Controller
 {
@@ -27,17 +28,32 @@ class UploadFileController extends Controller
         $json = new StdClass();
         $json->name = $file->getClientOriginalName();
         $json->mime = $file->getClientMimeType();
-        $json->path = $file->storePubliclyAs('', $this->getPublicName($file), 'public');
+        $json->path = $file->storePubliclyAs(uniqid('up', true), $file->getClientOriginalName(), 'public');
         $json->url = asset('storage/' . $json->path);
         return $json;
     }
 
     private function getPublicName(UploadedFile $file)
     {
+        return $file->getClientOriginalName();
         if (!$file->guessExtension()) {
             return uniqid('', true) . '.' . $file->clientExtension();
         } else {
             return $file->hashName();
         }
+    }
+
+    public function download($id, $name)
+    {
+        return response()->download(storage_path("app/public/$id"), $name, [
+            'Content-Type'  => Storage::drive('public')->mimeType($id),
+        ]);
+    }
+
+    public function view($id, $name)
+    {
+        return response()->download(storage_path("app/public/$id"), $name, [
+            'Content-Type'  => Storage::drive('public')->mimeType($id),
+        ], 'inline');
     }
 }

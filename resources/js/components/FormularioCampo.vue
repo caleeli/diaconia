@@ -4,7 +4,7 @@
     <div class="form-group">
       <div class="d-inline-block">
         <upload v-model="value.attributes.avatar" @change="updateAvatar">
-          <button type="button" class="btn btn-primary">Cambiar imagen</button>
+          <button type="button" class="btn btn-primary" :data-cy="`field.${field.key}`">Cambiar imagen</button>
         </upload>
       </div>
     </div>
@@ -14,18 +14,20 @@
     :label="withoutLabel ? '': field.label"
     label-size="sm"
     :state="state"
-    :invalid-feedback="feedback"
+    :invalid-feedback="invalidFeedback"
+    :data-cy="`fieldset.${field.key}`" 
   >
-    <component :is="field.component" v-bind="field.properties" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
+    <component :is="field.component" v-bind="field.properties" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
   <b-form-group
     v-else
     :label="withoutLabel ? '': field.label"
     label-size="sm"
     :state="state"
-    :invalid-feedback="feedback"
+    :invalid-feedback="invalidFeedback"
+    :data-cy="`fieldset.${field.key}`" 
   >
-    <b-form-input class="form-control" :type="field.type || 'text'" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
+    <b-form-input class="form-control" :type="field.type || 'text'" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
 </template>
 
@@ -37,7 +39,7 @@ export default {
     field: Object,
     value: Object,
     state: Boolean,
-    feedback: String,
+    invalidFeedback: String,
     withoutLabel: Boolean,
   },
   methods: {

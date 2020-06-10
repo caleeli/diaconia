@@ -49,8 +49,6 @@ let token = meta('csrf-token');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-} else {
-    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 window.userId = meta('user-id') * 1;

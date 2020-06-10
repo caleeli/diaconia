@@ -7,7 +7,7 @@
       <nav-bar />
     </template>
     <formulario ref="form" :value="$root.user" :fields="fields" :api="$api.user" />
-    <b-button variant="primary" @click="$refs.form.guardar()">
+    <b-button variant="primary" @click="$refs.form.guardar()" data-cy="submit">
       <i class="fas fa-save"></i> Guardar
     </b-button>
   </panel>

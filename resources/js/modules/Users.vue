@@ -16,7 +16,7 @@
       :search-in="['attributes.name', 'attributes.email']"
     >
       <template v-slot:actions="data">
-        <b-button @click="editar(data.item)" variant="info">
+        <b-button @click="editar(data.item)" variant="info" data-cy="tabla.row.change.password">
           <i class="fas fa-key"></i>
         </b-button>
       </template>
