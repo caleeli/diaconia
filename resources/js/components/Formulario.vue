@@ -10,7 +10,7 @@
     </template>
     <div class="text-right w-100 mt-2" data-cy="form.status">
       <label class="text-danger" v-if="error">{{ error }}</label>
-      <ul class="text-danger font-weight-light" v-for="(error, index) in errorsNotPresent" :key="`error-np-${index}`">
+      <ul class="text-danger font-weight-light" v-for="(error, index) in errorsInFieldsNotPresent" :key="`error-np-${index}`">
         <li v-for="(label, i) in error" :key="`error-np-${index}-${i}`">{{ label }}</li>
       </ul>
       <label class="text-success" v-if="success">{{ success }} <i class="fa fa-check"></i></label>
@@ -35,12 +35,10 @@ export default {
     };
   },
   computed: {
-    errorsNotPresent() {
+    errorsInFieldsNotPresent() {
       const errors = {};
       for(let e in this.errors) {
-        if (!this.fields.find(field => field.key === e)) {
-          errors[e] = this.errors[e];
-        }
+        !this.fields.find(field => field.key === e) ? errors[e] = this.errors[e] : null;
       }
       return errors;
     },
@@ -71,14 +69,14 @@ export default {
             this.state = true;
             accept(res);
           }).catch(res => {
-            this.error = res.response.data.message;
+            this.error = this.__(res.response.data.message);
             this.loadErrors(res.response.data.errors);
             this.state = false;
             reject(res);
           });
         } else {
           this.api.post(this.value).then((res) => {
-            this.success = 'Los cambios se guardaron correctamente';
+            this.success = this.__('Los cambios se guardaron correctamente');
             this.state = true;
             accept(res);
           }).catch(res => {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <tabla :fields="fields" :form-fields="formFields" :api="api" :title="__('Role')"
-      :search-in="['attributes.name']"
+      :search-in="['attributes.name','attributes.code']"
       :params="{sort:'id'}"
     >
       <template v-slot:cell(id)="data">

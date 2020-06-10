@@ -25,11 +25,15 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("login", (email, password) => {
-    cy.visit('http://127.0.0.1:8008');
+    cy.route('get', '/api/data/user/*').as('api_user_get');
+    cy.route('post', '/api/data/user/*').as('api_user_post');
+    cy.visit(Cypress.env("APP_URL"));
     cy.get('#login').click();
     cy.get('#email').type(email);
     cy.get('#password').type(password);
     cy.get('#submit').click();
+    cy.wait('@api_user_get');
+    cy.wait('@api_user_post');
 });
 
 /**
@@ -85,4 +89,16 @@ Cypress.Commands.add('uploadFile', (selector, fileUrl, type = '') => {
  */
 Cypress.Commands.add('dbSeed', (seeder) => {
     return cy.exec(`php artisan db:seed --class=${seeder}`);
+});
+
+/**
+ * Escribe y ejecuta una busqueda en la tabla que ve el usaurio
+ *
+ * @param {String} busqueda - seeder class name
+ */
+Cypress.Commands.add('buscarEnTabla', (busqueda) => {
+    cy.get('[data-cy="tabla.input.search"]:visible').clear().type(busqueda);
+    cy.get('[data-cy="tabla.search"]:visible').click();
+    cy.wait("@api_get");
+    cy.wait(100);
 });

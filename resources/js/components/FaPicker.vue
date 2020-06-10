@@ -24,11 +24,6 @@ export default {
       local: '',
     };
   },
-  methods: {
-    select(icon) {
-      this.$emit('update', icon);
-    },
-  },
   watch: {
     local(value) {
       this.$emit('update', `${base}${value}`);

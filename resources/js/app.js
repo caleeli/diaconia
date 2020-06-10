@@ -41,6 +41,7 @@ const app = new Vue({
     mixins: [window.workflowMixin, window.ResourceMixin],
     data() {
         return {
+            currentRequests: 0,
             // Used to open the west menu in compact view
             westOpen: false,
             menus: [],
@@ -49,6 +50,17 @@ const app = new Vue({
         };
     },
     mounted() {
+        window.currentRequests = 0;
+        window.axios.interceptors.request.use(function(request) {
+            this.currentRequests++;
+            window.currentRequests = this.currentRequests;
+            return request;
+        });
+        window.axios.interceptors.response.use(function(response) {
+            this.currentRequests--;
+            window.currentRequests = this.currentRequests;
+            return response;
+        });
         window.axios.post(
             `user/${window.userId}`,
             {

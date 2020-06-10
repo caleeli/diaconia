@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use JDD\Api\Traits\AjaxFilterTrait;
 
 class Menu extends Model
 {
+    use AjaxFilterTrait;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -54,5 +57,13 @@ class Menu extends Model
     public static function registerChildren($key, callable $callback)
     {
         self::$childrenCallbacks[$key][] = $callback;
+    }
+
+    public function validation()
+    {
+        return [
+            'code' => 'required',
+            'name' => 'required',
+        ];
     }
 }
