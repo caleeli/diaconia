@@ -1,7 +1,6 @@
 
 context('Core tests', () => {
     beforeEach(() => {
-        cy.viewport(1366, 768);
         cy.login('admin@coredump.com', 'admin');
     })
 

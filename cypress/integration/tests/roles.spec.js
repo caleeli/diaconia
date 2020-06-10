@@ -2,7 +2,6 @@
 context('Roles de usuarios', () => {
 
     beforeEach(() => {
-        cy.viewport(1366, 768);
         cy.login('admin@coredump.com', 'admin');
         cy.get('[data-cy="menu.roles"]').click();
         cy.wait(1000);

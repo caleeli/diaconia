@@ -21,10 +21,11 @@ import '@foreachbe/cypress-tinymce';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-beforeEach(() => {
-    // Reset database
+before(() => {
     cy.exec('php artisan migrate:fresh --seed');
+})
 
+beforeEach(() => {
     // Routes
     cy.server();
     cy.route('post', '/api/uploadfile').as('uploaded');
@@ -32,4 +33,6 @@ beforeEach(() => {
     cy.route('post', '/api/data/**').as('api_post');
     cy.route('put', '/api/data/**').as('api_put');
     cy.route('delete', '/api/data/**').as('api_delete');
+    // Viewport
+    cy.viewport(1366, 768);
 });
