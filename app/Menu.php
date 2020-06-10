@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use JDD\Api\Traits\AjaxFilterTrait;
 
 class Menu extends Model
 {
+    use AjaxFilterTrait;
+
     protected $guarded = [];
 
     protected $casts = [

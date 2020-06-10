@@ -52,9 +52,6 @@ export default {
     setValue(object, key, value) {
       set(object, key, value);
     },
-    setInputValue(object, key, event) {
-      set(object, key, event.target.value);
-    },
   },
 }
 </script>

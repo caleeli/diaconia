@@ -20,4 +20,12 @@ context('Perfil de Usuario', () => {
         });
     })
 
+    it('Actualización inválida de usuario', () => {
+        cy.get('[data-cy="navbar.profile"]').click();
+        cy.wait("@api_get");
+        cy.get('[data-cy="field.attributes.name"]').clear();
+        cy.get('[data-cy="submit"]').click();
+        cy.get('[data-cy="form.status"]').should('contain', 'Los datos ingresados son inválidos');
+    })
+
 })

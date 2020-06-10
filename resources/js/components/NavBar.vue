@@ -1,5 +1,6 @@
 <template>
   <div class="d-flex ml-2">
+    <b-button v-if="$root.currentRequests > 0" variant="outline-light" class="text-black"><i class='fas fa-spinner fa-spin'></i></b-button>
     <div class="btn-group text-nowrap mr-2" role="group">
       <slot />
       <router-link to="/" class="btn btn-warning" data-cy="menu.home"><i class="fas fa-home"></i> {{ __('Home') }}</router-link>
@@ -69,6 +70,7 @@ export default {
         window.localStorage.enableNotifications = '1';
       }
       this.enableNotifications = window.localStorage.enableNotifications;
+      /* istanbul ignore next */
       Vue.notification.requestPermission().then(() => {
         this.notificationRequest = Notification.permission;
       });

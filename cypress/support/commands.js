@@ -25,11 +25,16 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add("login", (email, password) => {
-    cy.visit('http://127.0.0.1:8008');
+    console.log(Cypress.env("APP_URL"),process.env);
+    cy.route('get', '/api/data/user/*').as('api_user_get');
+    cy.route('post', '/api/data/user/*').as('api_user_post');
+    cy.visit(Cypress.env("APP_URL"));
     cy.get('#login').click();
     cy.get('#email').type(email);
     cy.get('#password').type(password);
     cy.get('#submit').click();
+    cy.wait('@api_user_get');
+    cy.wait('@api_user_post');
 });
 
 /**
