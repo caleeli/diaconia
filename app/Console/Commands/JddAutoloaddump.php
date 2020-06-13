@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use Artisan;
 use Illuminate\Console\Command;
 
+/**
+ * @codeCoverageIgnore
+ */
 class JddAutoloaddump extends Command
 {
     /**

@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Menu;
+use App\Role;
 use App\User;
 use Tests\TestCase;
 
