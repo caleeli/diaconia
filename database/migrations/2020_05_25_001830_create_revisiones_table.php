@@ -38,15 +38,15 @@ class CreateRevisionesTable extends Migration
             $table->foreign('plantilla_id')
                 ->references('id')->on('plantillas')
                 ->onDelete('cascade')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
             $table->foreign('revisor_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
             $table->foreign('elaborador_id')
                 ->references('id')->on('users')
                 ->onDelete('cascade')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
     }
 
@@ -57,6 +57,6 @@ class CreateRevisionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('respuestas');
+        Schema::dropIfExists('revisiones');
     }
 }

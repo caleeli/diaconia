@@ -3,26 +3,18 @@
 namespace App\Traits;
 
 use App\Menu;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @property \App\Menu[] $menu
  */
 trait HasMenus
 {
-    /**
-     * User static menues
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function menus()
-    {
-        return $this->belongsToMany(Menu::class, 'menu_role', 'role', 'role');
-    }
 
     /**
      * Return all the menues loaded
      *
-     * @return array
+     * @return Collection
      */
     public function allMenus()
     {

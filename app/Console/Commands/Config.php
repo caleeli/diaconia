@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
+use function GuzzleHttp\json_encode;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-use function GuzzleHttp\json_encode;
-
+/**
+ * @codeCoverageIgnore
+ */
 class Config extends Command
 {
     /**

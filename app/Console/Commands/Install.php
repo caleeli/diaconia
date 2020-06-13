@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Install extends Config
 {
     /**

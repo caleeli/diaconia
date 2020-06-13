@@ -25,7 +25,7 @@ class CreatePlantillaPreguntasTable extends Migration
             $table->foreign('plantilla_id')
                 ->references('id')->on('plantillas')
                 ->onDelete('cascade')
-                ->onUpdate('restrict');
+                ->onUpdate('cascade');
         });
     }
 

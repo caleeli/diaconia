@@ -54,7 +54,7 @@ class BpmnSampleTest extends TestCase
         $instance->refresh();
 
         // Assertion: Verify the Script Task failed and the Console Task is active
-        $this->assertArraySubset(['status' => 'ACTIVE'], $instance->tokens[0]);
+        $this->assertEquals('ACTIVE', $instance->tokens[0]['status']);
 
         // Complete the active task
         Workflow::completeTask($instance->id, $instance->tokens[0]['id']);
@@ -99,7 +99,7 @@ class BpmnSampleTest extends TestCase
         $instance->refresh();
 
         // Assertion: Verify the Script Task failed and the Console Task is active
-        $this->assertArraySubset(['status' => 'FAILING'], $instance->tokens[0]);
-        $this->assertArraySubset(['status' => 'ACTIVE'], $instance->tokens[1]);
+        $this->assertEquals('FAILING', $instance->tokens[0]['status']);
+        $this->assertEquals('ACTIVE', $instance->tokens[1]['status']);
     }
 }
