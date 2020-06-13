@@ -39,6 +39,22 @@
                             </div>
                         </div>
 
+                        @if(env('NOCAPTCHA_SECRET'))
+                            {!! NoCaptcha::renderJs() !!}
+                            <div class="form-group row">
+                                <div class="col-md-4 col-form-label text-md-right"></div>
+                                <div class="col-md-6">
+                                {!! NoCaptcha::display() !!}
+
+                                @if ($errors->has('g-recaptcha-response'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                                    </span>
+                                @endif
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">

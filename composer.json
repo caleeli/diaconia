@@ -28,6 +28,7 @@
     "license": "LGPL-3.0-or-later",
     "require": {
         "php": "^7.2.5",
+        "anhskohbo/no-captcha": "^3.2",
         "coredump/jdd-api": "dev-master",
         "coredump/jdd-flow": "dev-master",
         "coredump/jdd-pacman": "dev-master",
