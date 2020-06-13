@@ -29,6 +29,7 @@ $user = User::create([
   'name' => $model->data->user->name,
   'email' => $model->data->user->email,
   'password' => Hash::make($model->data->user->password),
+  'role' => 'Administrador',
 ]);
 
 echo "Usuario creado. Id = " . $user->id;]]></script>
