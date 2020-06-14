@@ -36,7 +36,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
-          start: php run serve
+          start: php artisan serve
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost"
           # the entire command will automatically be prefixed with "npm"
