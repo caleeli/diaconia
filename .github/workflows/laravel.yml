@@ -39,6 +39,7 @@ jobs:
           # and we need the second "npm" to execute "cypress run ..." command line
           command: npm run cy:run
       - uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: cypress execution
           path: cypress/
