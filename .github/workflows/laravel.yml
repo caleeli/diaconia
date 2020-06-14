@@ -26,11 +26,11 @@ jobs:
         run: |
           npm install
           npm run prod
-          npm install -g laravel-echo-server
+          npm install laravel-echo-server
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
-          start: php artisan serve & laravel-echo-server start
+          start: php artisan serve & node node_modules/laravel-echo-server/bin/server.js start
           # quote the url to be safe against YML parsing surprises
           wait-on: "http://localhost:8000"
           # the entire command will automatically be prefixed with "npm"
