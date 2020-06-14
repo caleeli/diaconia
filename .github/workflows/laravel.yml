@@ -29,6 +29,10 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
+      - name: Install frontend
+        run: |
+          npm install
+          npm run prod
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
