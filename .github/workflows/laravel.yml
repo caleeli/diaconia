@@ -12,12 +12,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Dependencies
         run: composer install --no-ansi --no-interaction
-      - name: Generate key
-        run: php artisan key:generate
+      - name: Install application
+        run: |
+          php artisan app:config --no-interaction
+          php artisan app:install
       - name: Directory Permissions
         run: chmod -R 777 storage bootstrap/cache
       - name: Create Database
@@ -33,12 +33,13 @@ jobs:
         run: |
           npm install
           npm run prod
+          echo '{"env":{"APP_URL":"http://localhost:8000"}}' > cypress.json
       - name: Cypress run
         uses: cypress-io/github-action@v1
         with:
           start: php artisan serve
           # quote the url to be safe against YML parsing surprises
-          wait-on: "http://localhost"
+          wait-on: "http://localhost:8000"
           # the entire command will automatically be prefixed with "npm"
           # and we need the second "npm" to execute "cypress run ..." command line
           command: npm run cy:run
