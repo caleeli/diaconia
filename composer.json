@@ -29,7 +29,7 @@
     "require": {
         "php": "^7.2.5",
         "coredump/jdd-api": "dev-master",
-        "coredump/jdd-flow": "^0.1.1",
+        "coredump/jdd-flow": "^0.1.2",
         "coredump/jdd-pacman": "dev-master",
         "coredump/jdd-theme": "dev-master",
         "fideloper/proxy": "^4.0",
