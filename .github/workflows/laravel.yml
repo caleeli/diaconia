@@ -38,3 +38,7 @@ jobs:
           # the entire command will automatically be prefixed with "npm"
           # and we need the second "npm" to execute "cypress run ..." command line
           command: npm run cy:run
+      - uses: actions/upload-artifact@v2
+        with:
+          name: cypress execution
+          path: cypress/
