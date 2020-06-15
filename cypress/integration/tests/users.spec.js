@@ -28,11 +28,10 @@ context('Perfil de Usuario', () => {
         cy.get('button.btn').contains('Guardar').click();
         // espera a que se guarde el registro
         cy.wait("@api_post");
-        // Verificar que fue creado
-        cy.get('[data-cy="tabla.input.search"]').clear().type('test');
-        cy.get('[data-cy="tabla.search"]').click();
-        // espera a que se obtenga el listado de la API
         cy.wait("@api_get");
+        // Verificar que fue creado
+        cy.buscarEnTabla('test');
+        // espera a que se obtenga el listado de la API
         cy.get('[data-cy="tabla.table"]').find('tbody tr').should('have.length', 1);
         // Editar usuario test
         cy.get('[data-cy="tabla.row.edit"]').click();

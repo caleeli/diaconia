@@ -100,5 +100,5 @@ Cypress.Commands.add('buscarEnTabla', (busqueda) => {
     cy.get('[data-cy="tabla.input.search"]:visible').clear().type(busqueda);
     cy.get('[data-cy="tabla.search"]:visible').click();
     cy.wait("@api_get");
-    cy.wait(100);
+    cy.wait(1000);
 });
