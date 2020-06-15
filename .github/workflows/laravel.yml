@@ -22,6 +22,7 @@ jobs:
         run: |
           php artisan app:config --no-interaction
           php artisan app:install
+          php artisan cache:clear
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
       - name: Install frontend
