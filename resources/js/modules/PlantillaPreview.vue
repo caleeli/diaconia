@@ -12,7 +12,7 @@
           <b-td v-if="pregunta.attributes.indice">
             {{ pregunta.attributes.indice }}
           </b-td>
-          <b-td :colspan="pregunta.attributes.indice ? 1 : 8">
+          <b-td :colspan="pregunta.attributes.indice ? 1 : 8" style="width:30%;">
             {{ pregunta.attributes.descripcion }}
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
@@ -24,7 +24,12 @@
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.combo_clasificacion" v-model="pregunta.clasificacion" searchable />
+              :api="$api.clasificaciones"
+              v-model="pregunta.clasificacion"
+              searchable
+              text-field="attributes.valor"
+              style="width: 120px;"
+            />
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <b-form-textarea
