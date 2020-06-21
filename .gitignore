@@ -25,3 +25,4 @@ yarn-error.log
 /config/pacman.php
 .nyc_output
 cypress.json
+/resources/lang/vendor/
