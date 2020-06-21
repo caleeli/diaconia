@@ -40,9 +40,11 @@
       </template>
       <template v-slot:head(actions)="">
         <div class="w-100 text-right">
-          <slot name="toolbar"></slot>
-          <b-button v-if="!readonly" variant="primary" @click="loadData" data-cy="tabla.refresh"><i class="fas fa-sync"></i></b-button>
-          <b-button v-if="!readonly" variant="primary" @click="nuevo" data-cy="tabla.new"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
+          <div class="btn-group text-nowrap" role="group">
+            <slot name="toolbar"></slot>
+            <b-button v-if="!readonly" variant="primary" @click="loadData" data-cy="tabla.refresh"><i class="fas fa-sync"></i></b-button>
+            <b-button v-if="!readonly" variant="primary" @click="nuevo" data-cy="tabla.new"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
+          </div>
         </div>
       </template>
       <template v-slot:cell(actions)="data">

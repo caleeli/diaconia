@@ -6,14 +6,21 @@
     <template slot="actions">
       <nav-bar />
     </template>
+    <div class="w-100 text-right">
+      <div class="btn-group text-nowrap" role="group">
+        <b-button variant="primary" @click="volver" data-cy="plantilla-volver"><i class="fas fa-arrow-left"></i></b-button>
+      </div>
+    </div>
     <b-table-simple>
       <b-tbody>
         <b-tr v-for="pregunta in preguntas" :key="`pregunta-${pregunta.id}`">
           <b-td v-if="pregunta.attributes.indice">
             {{ pregunta.attributes.indice }}
           </b-td>
-          <b-td :colspan="pregunta.attributes.indice ? 1 : 8" style="width:30%;">
-            {{ pregunta.attributes.descripcion }}
+          <b-td
+            :colspan="pregunta.attributes.indice ? 1 : 8"
+            style="width:30%;"
+            v-html="pregunta.attributes.descripcion">
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <b-form-input
@@ -79,14 +86,8 @@ export default {
     };
   },
   methods: {
-    refreshTable() {
-      let pendientes = 0;
-      this.$refs.preguntas.value.forEach(row => {
-        if (row.edit) pendientes++;
-      });
-      if (!pendientes) {
-        this.$refs.preguntas.loadData();
-      }
+    volver() {
+      this.$router.go(-1);
     },
   },
 }
