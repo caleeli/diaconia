@@ -176,8 +176,6 @@ export default {
         if (value) {
           this.api.delete(registro).then(() => {
             this.loadData();
-          }).catch(res => {
-            alert(res.response.data.message);
           });
         }
       });
