@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(CombosSeeder::class);
         $this->call(OperacionesSeeder::class);
+        $this->call(PlantillasSeeder::class);
     }
 }

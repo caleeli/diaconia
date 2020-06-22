@@ -10,7 +10,7 @@
       :search-in="['attributes.name']"
     >
       <template v-slot:actions="data">
-        <b-button @click="editarPlantilla(data.item)" variant="info"><i class="fas fa-list"></i></b-button>
+        <b-button @click="editarPlantilla(data.item)" variant="info" data-cy="tabla.row.preguntas"><i class="fas fa-list"></i></b-button>
       </template>
     </tabla>
   </panel>

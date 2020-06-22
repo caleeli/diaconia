@@ -6,6 +6,9 @@ use App\Traits\ModelValidation;
 use Illuminate\Database\Eloquent\Model;
 use JDD\Api\Traits\AjaxFilterTrait;
 
+/**
+ * @staticMethod Plantilla create(array $data)
+ */
 class Plantilla extends Model
 {
     use ModelValidation;

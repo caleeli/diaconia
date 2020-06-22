@@ -102,3 +102,20 @@ Cypress.Commands.add('buscarEnTabla', (busqueda) => {
     cy.wait("@api_get");
     cy.wait(1000);
 });
+
+// BOTONES
+Cypress.Commands.add('guardar', (tipo = '@api_put') => {
+    cy.get('button.btn').contains('Guardar').click();
+    cy.wait(tipo);
+    cy.wait('@api_get');
+});
+Cypress.Commands.add('no', () => {
+    cy.get('button.btn').contains('no').click();
+});
+Cypress.Commands.add('si', () => {
+    cy.get('button.btn').contains('sí').click();
+});
+Cypress.Commands.add('guardarEnLinea', (selector, tipo = '@api_put') => {
+    cy.get(selector).click();
+    cy.wait(tipo);
+});

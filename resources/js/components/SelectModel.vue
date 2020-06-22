@@ -2,8 +2,8 @@
   <select-box v-if="searchable"
     v-model="model"
     :data="data"
-    id-field="attributes.valor"
-    filter-by="attributes.descripcion"
+    :id-field="idField"
+    :filter-by="textField"
     :rows="10"
   >
     <template slot-scope="{ row, remove, format }">
@@ -11,7 +11,7 @@
         {{ row.attributes.valor }}
       </span>
       <span v-else>
-        <span v-html="format(row.attributes.descripcion)"></span>
+        <span v-html="format(text(row))"></span>
       </span>
     </template>
   </select-box>
@@ -24,11 +24,21 @@
 </template>
 
 <script>
+import { get } from 'lodash';
+
 export default {
   props: {
     value: null,
     api: Object,
     searchable: Boolean,
+    idField: {
+      type: String,
+      default: 'attributes.valor',
+    },
+    textField: {
+      type: String,
+      default: 'attributes.descripcion',
+    },
   },
   computed: {
     model: {
@@ -44,6 +54,11 @@ export default {
     return {
       data: this.api.array({per_page: 1000}),
     };
+  },
+  methods: {
+    text(row) {
+      return get(row, this.textField);
+    },
   },
 }
 </script>
