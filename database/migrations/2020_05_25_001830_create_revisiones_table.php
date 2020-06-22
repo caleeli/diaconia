@@ -25,10 +25,10 @@ class CreateRevisionesTable extends Migration
             $table->string('tipo_inf');
             $table->string('visita');
             $table->date('fecha_muestra');
-            $table->date('fecha_revision');
-            $table->date('fecha_visita');
-            $table->string('lugar_visita');
-            $table->text('observaciones');
+            $table->date('fecha_revision')->nullable();
+            $table->date('fecha_visita')->nullable();
+            $table->string('lugar_visita')->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
 
             /*$table->foreign('informe_id')

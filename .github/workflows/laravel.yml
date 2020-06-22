@@ -23,13 +23,13 @@ jobs:
           php artisan app:config --no-interaction
           php artisan app:install
           php artisan cache:clear
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: composer test
       - name: Install frontend
         run: |
           npm install
           npm run prod
           npm install laravel-echo-server
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: composer test
       - name: Start laravel echo in the background
         run: node node_modules/laravel-echo-server/bin/server.js start &
       - name: Cypress run

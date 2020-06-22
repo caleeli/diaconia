@@ -81,7 +81,7 @@ context('Plantillas de auditoria', () => {
         cy.get('[data-cy="tabla.vista-previa"]').click();
         cy.wait(1000);
         cy.wait("@api_get.all");
-        cy.get('[data-cy="pregunta.revision"]:first').select('PC');
+        cy.get('[data-cy="pregunta.respuesta"]:first').select('PC');
         cy.get('[data-cy="pregunta.clasificacion"]:first .dropdown-toggle').click();
         cy.get('[data-cy="pregunta.clasificacion"]:first li:contains("Boleta de caja")').click();
         cy.get('[data-cy="pregunta.observacion"]:first').clear().type('Falta la boleta de caja');

@@ -31,5 +31,7 @@
         <server name="SESSION_DRIVER" value="array"/>
         <env name="DB_CONNECTION" value="test"/>
         <env name="BROADCAST_DRIVER" value="log"/>
+        <env name="NOCAPTCHA_SECRET" value="NOCAPTCHA_SECRET"/>
+        <env name="NOCAPTCHA_SITEKEY" value="NOCAPTCHA_SITEKEY"/>
     </php>
 </phpunit>

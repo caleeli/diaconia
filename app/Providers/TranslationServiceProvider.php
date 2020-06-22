@@ -48,6 +48,8 @@ class TranslationServiceProvider extends ServiceProvider
             return json_decode(file_get_contents($path), true);
         }
 
+        // @codeCoverageIgnoreStart
         return [];
+        // @codeCoverageIgnoreEnd
     }
 }

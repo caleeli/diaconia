@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use JDD\Api\Traits\AjaxFilterTrait;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * @property Role $roleObject
+ */
 class User extends Authenticatable
 {
     use HasApiTokens;
