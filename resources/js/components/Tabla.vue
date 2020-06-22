@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex flex-column overflow-hidden h-100">
     <div class="d-flex">
       <b-input-group :class="{invisible: !searchIn}">
         <b-form-input :lazy="true" v-model="searchValue" size="sm" @change="search" data-cy="tabla.input.search"></b-form-input>
@@ -20,58 +20,61 @@
         </b-input-group-append>
       </b-input-group>
     </div>
-    <b-table :items="value" :fields="fields" data-cy="tabla.table">
-      <template v-slot:cell()="data">
-        <slot v-if="hasSlot(`cell(${data.field.key})`)" :name="`cell(${data.field.key})`" v-bind="data" :update="update"></slot>
-        <formulario-campo v-else-if="inline && data.item.edit"
-          class="m-0"
-          without-label
-          :field="data.field"
-          :value="data.item"
-          :state="data.item.state"
-          :feedback="feedback(data.item, data.field.key)"
-        />
-        <template v-else>
-          {{ getValue(data.item, data.field.key) }}
+    <div ref="scrollContainer" class="flex-grow-1 overflow-auto">
+      <b-table :items="value" :fields="fields" data-cy="tabla.table">
+        <template v-slot:cell()="data">
+          <slot v-if="hasSlot(`cell(${data.field.key})`)" :name="`cell(${data.field.key})`" v-bind="data" :update="update"></slot>
+          <formulario-campo v-else-if="inline && data.item.edit"
+            class="m-0"
+            without-label
+            :field="data.field"
+            :value="data.item"
+            :state="data.item.state"
+            :feedback="feedback(data.item, data.field.key)"
+          />
+          <template v-else>
+            {{ getValue(data.item, data.field.key) }}
+          </template>
         </template>
-      </template>
-      <template v-slot:cell(attributes.avatar)="data">
-        <avatar style="font-size: 2em" :value="data.item.attributes.avatar" />
-      </template>
-      <template v-slot:head(actions)="">
-        <div class="w-100 text-right">
-          <div class="btn-group text-nowrap" role="group">
-            <slot name="toolbar"></slot>
-            <b-button v-if="!readonly" variant="primary" @click="loadData" data-cy="tabla.refresh"><i class="fas fa-sync"></i></b-button>
-            <b-button v-if="!readonly" variant="primary" @click="nuevo" data-cy="tabla.new"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
+        <template v-slot:cell(attributes.avatar)="data">
+          <avatar style="font-size: 2em" :value="data.item.attributes.avatar" />
+        </template>
+        <template v-slot:head(actions)="">
+          <div class="w-100 text-right">
+            <div class="btn-group text-nowrap" role="group">
+              <slot name="toolbar"></slot>
+              <b-button v-if="!readonly" variant="primary" @click="loadData" data-cy="tabla.refresh"><i class="fas fa-sync"></i></b-button>
+              <b-button v-if="!readonly" variant="primary" @click="nuevo" data-cy="tabla.new"><i class="fas fa-plus"></i> {{ __('new') }}</b-button>
+            </div>
           </div>
-        </div>
-      </template>
-      <template v-slot:cell(actions)="data">
-        <div class="w-100 text-right">
-          <div class="btn-group text-nowrap" role="group">
-            <slot name="actions" v-bind="data"></slot>
-            <b-button data-cy="tabla.row.edit" v-if="!inline" variant="primary" @click="editar(data.item)"><i class="fas fa-pen"></i></b-button>
-            <b-button data-cy="tabla.row.edit" v-else-if="!data.item.edit" variant="primary" @click="editarInline(data.item)"><i class="fas fa-pen"></i></b-button>
-            <b-button data-cy="tabla.row.save" v-else variant="primary" @click="guardarInline(data.item)"><i class="fas fa-save"></i></b-button>
-            <b-button data-cy="tabla.row.remove" variant="danger" @click="eliminar(data.item)"><i class="fas fa-times"></i></b-button>
+        </template>
+        <template v-slot:cell(actions)="data">
+          <div class="w-100 text-right">
+            <div class="btn-group text-nowrap" role="group">
+              <slot name="actions" v-bind="data"></slot>
+              <b-button data-cy="tabla.row.edit" v-if="!inline" variant="primary" @click="editar(data.item)"><i class="fas fa-pen"></i></b-button>
+              <b-button data-cy="tabla.row.edit" v-else-if="!data.item.edit" variant="primary" @click="editarInline(data.item)"><i class="fas fa-pen"></i></b-button>
+              <b-button data-cy="tabla.row.save" v-else variant="primary" @click="guardarInline(data.item)"><i class="fas fa-save"></i></b-button>
+              <b-button data-cy="tabla.row.remove" variant="danger" @click="eliminar(data.item)"><i class="fas fa-times"></i></b-button>
+            </div>
           </div>
-        </div>
-      </template>
-    </b-table>
-    <b-modal
-      ref="modal"
-      :title="title"
-      @ok="guardar"
-    >
-      <formulario ref="formulario" :fields="formFieldsF" :value="registro" :api="api" />
-      <template slot="modal-ok">
-        <i class="fas fa-save"></i> Guardar
-      </template>
-      <template slot="modal-cancel">
-        <i class="fas fa-window-close"></i> Cancelar
-      </template>
-    </b-modal>
+        </template>
+      </b-table>
+      <b-modal
+        v-if="!inline"
+        ref="modal"
+        :title="title"
+        @ok="guardar"
+      >
+        <formulario ref="formulario" :fields="formFieldsF" :value="registro" :api="api" />
+        <template slot="modal-ok">
+          <i class="fas fa-save"></i> Guardar
+        </template>
+        <template slot="modal-cancel">
+          <i class="fas fa-window-close"></i> Cancelar
+        </template>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -254,6 +257,9 @@ export default {
       this.error = '';
       if (this.inline) {
         this.value.push(cloneDeep(nuevoRegistroInline));
+        this.$nextTick(() => {
+          this.$refs.scrollContainer.scrollTo(0, this.$refs.scrollContainer.scrollHeight);
+        });
       } else {
         this.registro = cloneDeep(nuevoRegistro);
         this.$refs.modal.show();
