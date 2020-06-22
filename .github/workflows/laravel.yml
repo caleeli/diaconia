@@ -29,7 +29,7 @@ jobs:
           npm run prod
           npm install laravel-echo-server
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit
+        run: composer test
       - name: Start laravel echo in the background
         run: node node_modules/laravel-echo-server/bin/server.js start &
       - name: Cypress run
