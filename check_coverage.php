@@ -8,7 +8,7 @@ function get_php_coverage() {
     return $percentage ? $percentage->nodeValue : 'ERROR';
 }
 $coverage = get_php_coverage();
-echo "Cobertura código PHP: {$coverage}\n";
+echo "Cobertura código PHP: **{$coverage}**\n";
 
 function get_js_coverage() {
     $coverage = new DomDocument();
@@ -18,4 +18,4 @@ function get_js_coverage() {
     return $percentage ? $percentage->nodeValue : 'error';
 }
 $coverage = get_js_coverage();
-echo "Cobertura código JS: {$coverage}\n";
+echo "Cobertura código JS: **{$coverage}**\n";

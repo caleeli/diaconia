@@ -24,7 +24,7 @@ jobs:
           php artisan app:install
           php artisan cache:clear
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        run: vendor/bin/phpunit -d memory_limit=-1 --coverage-html coverage
+        run: composer test
       - name: Install frontend
         run: |
           npm install
