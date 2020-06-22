@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\Traits\ModelValidation;
 use Illuminate\Database\Eloquent\Model;
 use JDD\Api\Traits\AjaxFilterTrait;
 
 class Menu extends Model
 {
+    use ModelValidation;
     use AjaxFilterTrait;
 
     protected $guarded = [];

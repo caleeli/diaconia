@@ -25,8 +25,8 @@
           <b-td v-if="pregunta.attributes.indice">
             <select-model
               :api="$api.combo_revision"
-              v-model="pregunta.revision"
-              data-cy="pregunta.revision"
+              v-model="pregunta.respuesta"
+              data-cy="pregunta.respuesta"
             />
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
@@ -78,7 +78,7 @@ export default {
         //{key:'attributes.grupo', label: 'Grupo'},
         {key:'attributes.indice', label: 'Índice'},
         {key:'attributes.descripcion', label: 'Detalle'},
-        {key:'revision', label: 'Revisión', extra: true},
+        {key:'respuesta', label: 'Revisión', extra: true},
         {key:'clasificacion', label: 'Clasificación', extra: true},
         {key:"observacion", label: "Observacion", extra: true},
         {key:"tipo_observacion", label: "Tipo observacion", extra: true},

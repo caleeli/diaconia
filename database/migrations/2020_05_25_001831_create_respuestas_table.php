@@ -19,15 +19,15 @@ class CreateRespuestasTable extends Migration
             $table->bigInteger('muestra_id')->nullable();
             $table->bigInteger('revision_id');
             $table->bigInteger('pregunta_id');
-            $table->string('revision');
+            $table->string('respuesta');
             $table->string('clasificacion');
-            $table->string('observacion');
+            $table->text('observacion');
             $table->integer('tipo_observacion');
             $table->string('riesgo_adicional');
             $table->integer('tipo_credito');
             $table->string('calidad');
-            $table->text('respuesta_jefe_agencia');
-            $table->text('seguimiento');
+            $table->text('respuesta_jefe_agencia')->nullable();
+            $table->text('seguimiento')->nullable();
             $table->timestamps();
 
             /*$table->foreign('informe_id')

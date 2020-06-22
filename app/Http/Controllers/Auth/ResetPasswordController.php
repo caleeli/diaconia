@@ -31,6 +31,7 @@ class ResetPasswordController extends Controller
      * Create a new controller instance.
      *
      * @return void
+     * @codeCoverageIgnore
      */
     public function __construct()
     {
