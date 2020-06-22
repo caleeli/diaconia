@@ -23,7 +23,7 @@
     <div ref="scrollContainer" class="flex-grow-1 overflow-auto">
       <b-table :items="value" :fields="fields" data-cy="tabla.table">
         <template v-slot:cell()="data">
-          <slot v-if="hasSlot(`cell(${data.field.key})`)" :name="`cell(${data.field.key})`" v-bind="data" :update="update"></slot>
+          <slot v-if="hasSlot(`cell(${data.field.key})`)" :name="`cell(${data.field.key})`" v-bind="data"></slot>
           <formulario-campo v-else-if="inline && data.item.edit"
             class="m-0"
             without-label
@@ -139,13 +139,6 @@ export default {
     };
   },
   methods: {
-    update(row) {
-      this.api.save(row).catch(res => {
-        this.error = res.response.data.message;
-      }).then(() => {
-        this.loadData();
-      });
-    },
     hasSlot(name) {
       return !!this.$scopedSlots[name];
     },
@@ -249,9 +242,6 @@ export default {
     },
     getValue(object, key) {
       return get(object, key);
-    },
-    setValue(object, key, event) {
-      set(object, key, event.target.value);
     },
     nuevo() {
       this.error = '';

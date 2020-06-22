@@ -118,5 +118,4 @@ Cypress.Commands.add('si', () => {
 Cypress.Commands.add('guardarEnLinea', (selector, tipo = '@api_put') => {
     cy.get(selector).click();
     cy.wait(tipo);
-    cy.wait('@api_get');
 });

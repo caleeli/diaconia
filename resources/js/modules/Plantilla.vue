@@ -14,7 +14,7 @@
       :search-in="['attributes.grupo', 'attributes.indice', 'attributes.descripcion']"
     >
       <template slot="toolbar">
-        <router-link class="btn btn-primary" :to="`/plantilla/${plantilla.id}/preview`"><i class="fas fa-eye"></i> {{ __('Vista previa') }}</router-link>
+        <router-link class="btn btn-primary" :to="`/plantilla/${plantilla.id}/preview`" data-cy="tabla.vista-previa"><i class="fas fa-eye"></i> {{ __('Vista previa') }}</router-link>
       </template>
     </tabla>
   </panel>
