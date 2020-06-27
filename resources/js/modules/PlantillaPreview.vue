@@ -54,7 +54,7 @@
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.combo_riesgo"
+              :api="$api.riesgos"
               v-model="pregunta.riesgo_adicional"
               data-cy="pregunta.riesgo_adicional"
             />
