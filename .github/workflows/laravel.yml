@@ -45,6 +45,7 @@ jobs:
         run: php check_coverage.php > .github/workflows/code_coverage.md
       - name: Comment the code coverage status
         uses: harupy/comment-on-pr@master
+        if: ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
