@@ -15,6 +15,11 @@
       :api="api"
       ref="formulario"
     ></modal-form>
+    <tabla
+      :fields="fields" :form-fields="formFields" :api="apiPreguntas" title="Pregunta"
+      :search-in="['attributes.grupo', 'attributes.indice', 'attributes.descripcion']"
+    >
+    </tabla>
   </div>
 </template>
 
@@ -33,6 +38,19 @@ export default {
           label: "Confirmar contraseña",
           type: "password"
         }
+      ],
+      // Tabla de preguntas
+      apiPreguntas: this.$api.preguntas,
+      fields: [
+        {key:'attributes.grupo', label: 'Grupo'},
+        {key:'attributes.indice', label: 'Índice'},
+        {key:'attributes.descripcion', label: 'Descripción'},
+        {key:'actions', label: ''},
+      ],
+      formFields: [
+        {key:'attributes.grupo', label: 'Grupo', create: true, edit: true },
+        {key:'attributes.indice', label: 'Índice', create: true, edit: true },
+        {key:'attributes.descripcion', label: 'Descripción', create: true, edit: true },
       ],
     };
   },
