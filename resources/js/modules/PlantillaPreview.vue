@@ -24,14 +24,14 @@
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.combo_revision"
+              :data="revisiones"
               v-model="pregunta.respuesta"
               data-cy="pregunta.respuesta"
             />
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.clasificaciones"
+              :data="clasificaciones"
               v-model="pregunta.clasificacion"
               data-cy="pregunta.clasificacion"
               searchable
@@ -47,16 +47,18 @@
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.combo_tipo_informe"
+              :data="tipo_informes"
               v-model="pregunta.tipo_observacion"
               data-cy="pregunta.tipo_observacion"
             />
           </b-td>
           <b-td v-if="pregunta.attributes.indice">
             <select-model
-              :api="$api.riesgos"
-              v-model="pregunta.riesgo_adicional"
-              data-cy="pregunta.riesgo_adicional"
+              :data="riesgos"
+              v-model="pregunta.riesgo_adicional_id"
+              data-cy="pregunta.riesgo_adicional_id"
+              id-field="id"
+              text-field="attributes.nombre"
             />
           </b-td>
         </b-tr>
@@ -71,6 +73,11 @@ export default {
   mixins: [window.ResourceMixin],
   data() {
     return {
+      revisiones: this.$api.combo_revision.array({per_page: 1000}),
+      riesgos: this.$api.riesgos.array({per_page: 1000}),
+      clasificaciones: this.$api.clasificaciones.array({per_page: 1000}),
+      tipo_informes: this.$api.combo_tipo_informe.array({per_page: 1000}),
+      riesgos: this.$api.riesgos.array({per_page: 1000}),
       plantilla: this.$api.plantilla.row(this.$route.params.id),
       preguntas: this.$api[`plantilla/${this.$route.params.id}/preguntas`].array({ per_page: -1, sort:'grupo,indice' }),
       api: this.$api[`plantilla/${this.$route.params.id}/preguntas`],
@@ -82,7 +89,7 @@ export default {
         {key:'clasificacion', label: 'Clasificación', extra: true},
         {key:"observacion", label: "Observacion", extra: true},
         {key:"tipo_observacion", label: "Tipo observacion", extra: true},
-        {key:"riesgo_adicional", label: "Riesgo adicional/control int.", extra: true},
+        {key:"riesgo_adicional_id", label: "Riesgo adicional/control int.", extra: true},
         //{key:"relationships.pregunta.plantilla_id", label: "tipo_credito"},
         //{key:"attributes.informe", label: "informe"},
         //{key:"attributes.carpeta_id", label: "prmprnpre"}

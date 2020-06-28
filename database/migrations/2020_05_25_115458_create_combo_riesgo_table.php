@@ -18,7 +18,7 @@ class CreateComboRiesgoTable extends Migration
             $table->string('nombre', 32);
             $table->string('color');
             $table->float('ponderacion');
-            $table->nombre('valor');
+            $table->unique('nombre');
         });
     }
 

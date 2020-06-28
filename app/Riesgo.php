@@ -2,7 +2,7 @@
 
 namespace App;
 
-class ComboRiesgo extends ModelCombo
+class Riesgo extends ModelCombo
 {
     protected $table = 'riesgos';
 }
