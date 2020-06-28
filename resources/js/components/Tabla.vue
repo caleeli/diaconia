@@ -2,21 +2,21 @@
   <div class="d-flex flex-column overflow-hidden h-100">
     <div class="d-flex">
       <b-input-group :class="{invisible: !searchIn}">
-        <b-form-input :lazy="true" v-model="searchValue" size="sm" @change="search" data-cy="tabla.input.search"></b-form-input>
+        <b-form-input :lazy="true" v-model="searchValue" size="sm" data-cy="tabla.input.search"></b-form-input>
         <b-input-group-append>
           <b-button variant="outline-secondary" @click="search" data-cy="tabla.search">{{ __('search') }}</b-button>
         </b-input-group-append>
       </b-input-group>
       <b-input-group v-if="params.per_page!==-1" style="width: 22em;">
         <b-input-group-prepend>
-          <b-button variant="outline-secondary" :disabled="params.page<=1" @click="setPage(1)"><i class="fas fa-step-backward"></i></b-button>
-          <b-button variant="outline-secondary" :disabled="params.page<=1" @click="setPage(params.page - 1)"><i class="fas fa-caret-left"></i></b-button>
+          <b-button variant="outline-secondary" :disabled="params.page<=1" @click="setPage(1)" data-cy="table.toolbar.first"><i class="fas fa-step-backward"></i></b-button>
+          <b-button variant="outline-secondary" :disabled="params.page<=1" @click="setPage(params.page - 1)" data-cy="table.toolbar.previous"><i class="fas fa-caret-left"></i></b-button>
         </b-input-group-prepend>
-        <b-form-input v-model="page" :lazy="true" class="text-right" size="sm"></b-form-input>
+        <b-form-input v-model="page" :lazy="true" class="text-right" size="sm" data-cy="table.toolbar.page" @change="setPage"></b-form-input>
         <b-input-group-append>
-          <b-button variant="outline-secondary" disabled>/{{ meta.last_page }}</b-button>
-          <b-button variant="outline-secondary" :disabled="params.page>=meta.last_page" @click="setPage(params.page + 1)"><i class="fas fa-caret-right"></i></b-button>
-          <b-button variant="outline-secondary" :disabled="params.page>=meta.last_page" @click="setPage(meta.last_page)"><i class="fas fa-step-forward"></i></b-button>
+          <b-button variant="outline-secondary" disabled data-cy="table.toolbar.last_page">/{{ meta.last_page }}</b-button>
+          <b-button variant="outline-secondary" :disabled="params.page>=meta.last_page" @click="setPage(params.page + 1)" data-cy="table.toolbar.next"><i class="fas fa-caret-right"></i></b-button>
+          <b-button variant="outline-secondary" :disabled="params.page>=meta.last_page" @click="setPage(meta.last_page)" data-cy="table.toolbar.last"><i class="fas fa-step-forward"></i></b-button>
         </b-input-group-append>
       </b-input-group>
     </div>
@@ -154,12 +154,16 @@ export default {
         } else {
           this.params.filter[index] = filter;
         }
-        this.setPage(1);
+        this.page = 1;
+        this.params.page = this.page;
+        this.loadData();
       }
     },
     setPage(page) {
-      this.params.page = page;
-      this.loadData();
+      if (this.params.page != page) {
+        this.params.page = page;
+        this.loadData();
+      }
     },
     eliminar(registro) {
       this.$bvModal.msgBoxConfirm(this.__('Are you sure to delete this item?'), {
@@ -256,6 +260,7 @@ export default {
     loadData() {
       this.api.index(this.params, this.value).then(response => {
         this.meta = response.data.meta;
+        if (this.meta.page) this.page = this.meta.page;
         this.value.forEach(row => {
           this.$set(row, 'edit', false);
           // Agrega los campos extra que no son parte de attributes o relationships o id o $type
@@ -270,11 +275,6 @@ export default {
   },
   mounted() {
     this.loadData(); 
-  },
-  watch: {
-    page(page) {
-      this.setPage(page);
-    }
   },
 }
 </script>
