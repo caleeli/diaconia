@@ -18,6 +18,7 @@ class CreateRiesgosTable extends Migration
             $table->string('nombre', 32);
             $table->string('color');
             $table->float('ponderacion');
+            $table->timestamps();
             $table->unique('nombre');
         });
     }
