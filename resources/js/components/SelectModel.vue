@@ -1,7 +1,7 @@
 <template>
   <select-box v-if="searchable"
     v-model="model"
-    :data="data"
+    :data="data2"
     :id-field="idField"
     :filter-by="textField"
     :rows="10"
@@ -17,9 +17,9 @@
   </select-box>
   <b-form-select v-else
     v-model="model"
-    :options="data"
-    value-field="attributes.valor"
-    text-field="attributes.descripcion"
+    :options="data2"
+    :value-field="idField"
+    :text-field="textField"
   ></b-form-select>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   props: {
     value: null,
     api: Object,
+    data: Array,
     searchable: Boolean,
     idField: {
       type: String,
@@ -52,7 +53,7 @@ export default {
   },
   data() {
     return {
-      data: this.api.array({per_page: 1000}),
+      data2: this.data || this.api.array({per_page: 1000}),
     };
   },
   methods: {

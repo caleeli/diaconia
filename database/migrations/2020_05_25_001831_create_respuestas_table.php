@@ -23,7 +23,7 @@ class CreateRespuestasTable extends Migration
             $table->string('clasificacion');
             $table->text('observacion');
             $table->integer('tipo_observacion');
-            $table->string('riesgo_adicional');
+            $table->bigInteger('riesgo_adicional_id');
             $table->integer('tipo_credito');
             $table->string('calidad');
             $table->text('respuesta_jefe_agencia')->nullable();

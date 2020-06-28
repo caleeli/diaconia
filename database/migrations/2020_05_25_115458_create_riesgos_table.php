@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateComboRiesgoTable extends Migration
+class CreateRiesgosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateComboRiesgoTable extends Migration
      */
     public function up()
     {
-        Schema::create('combo_riesgo', function (Blueprint $table) {
+        Schema::create('riesgos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('valor', 32);
-            $table->string('descripcion');
-            $table->unique('valor');
+            $table->string('nombre', 32);
+            $table->string('color');
+            $table->float('ponderacion');
+            $table->timestamps();
+            $table->unique('nombre');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateComboRiesgoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('combo_riesgo');
+        Schema::dropIfExists('riesgos');
     }
 }

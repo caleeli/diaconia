@@ -4,7 +4,7 @@ use App\ComboRevision;
 use App\ComboCalidad;
 use App\Clasificaciones;
 use App\ComboLugarVisita;
-use App\ComboRiesgo;
+use App\Riesgo;
 use App\Sucursales;
 use App\ComboTipoInforme;
 use App\ComboVisita;
@@ -112,9 +112,9 @@ class CombosSeeder extends Seeder
             ['valor' => 'NEGOCIO', 'descripcion' => 'NEGOCIO'],
             ['valor' => 'OTRO', 'descripcion' => 'OTRO'],
         ]);
-        ComboRiesgo::insert([
-            ['valor' => 'RA', 'descripcion' => 'RA'],
-            ['valor' => 'CI', 'descripcion' => 'CI'],
+        Riesgo::insert([
+            ['nombre' => 'RA', 'color' => '#ebf78f', 'ponderacion' => 0.3],
+            ['nombre' => 'CI', 'color' => '#d73a4a', 'ponderacion' => 0.5],
         ]);
         Sucursales::insert([
             ['valor' => 'CBBA', 'descripcion' => 'CBBA'],
