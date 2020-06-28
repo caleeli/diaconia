@@ -263,12 +263,6 @@ export default {
         if (this.meta.page) this.page = this.meta.page;
         this.value.forEach(row => {
           this.$set(row, 'edit', false);
-          // Agrega los campos extra que no son parte de attributes o relationships o id o $type
-          this.fields.forEach(field => {
-            if (field.extra) {
-              this.$set(row, field.key, field.default ||  null);
-            }
-          });
         });
       });
     },
