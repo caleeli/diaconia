@@ -1,14 +1,17 @@
 <?php
+
 namespace App;
+
 use App\Traits\ModelValidation;
 use App\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
+
 class Tareas extends Model
 {
     use ModelValidation;
-    
+
     protected $table = 'tareas';
     protected $casts = [
         'entregable' => 'array',
@@ -27,10 +30,14 @@ class Tareas extends Model
     }
     public function setEntregableAttribute($value)
     {
-        if ($value) {
+        if (!empty($value)) {
             $this->attributes['entregable_fecha'] = Carbon::now();
         }
-        $this->attributes['entregable'] = $value;
+        if (is_array($value)) {
+            $this->attributes['entregable'] = json_encode($value);
+        } else {
+            $this->attributes['entregable'] = $value;
+        }
     }
     public function validation()
     {

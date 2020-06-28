@@ -23,7 +23,7 @@ export default {
       }
     },
     info() {
-      return JSON.parse(this.archivo.toString());
+      return this.archivo;
     }
   }
 };
