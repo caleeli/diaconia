@@ -73,4 +73,9 @@ class User extends Authenticatable
             'role' => 'required',
         ];
     }
+
+    public function Tareas()
+    {
+        return $this->belongsToMany('App\Tareas');
+    }
 }

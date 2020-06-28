@@ -17,7 +17,10 @@
     :invalid-feedback="invalidFeedback"
     :data-cy="`fieldset.${field.key}`" 
   >
-    <component :is="field.component" v-bind="field.properties" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
+    <component :is="field.component" v-bind="field.properties" :data-cy="`field.${field.key}`"
+      :value="getValue(value, field.key)"
+      @change="setValue(value, field.key, $event)"
+    />
   </b-form-group>
   <b-form-group
     v-else
@@ -30,10 +33,8 @@
     <b-form-input class="form-control" :type="field.type || 'text'" :data-cy="`field.${field.key}`" :value="getValue(value, field.key)" @change="setValue(value, field.key, $event)" />
   </b-form-group>
 </template>
-
 <script>
 import { get, set } from 'lodash';
-
 export default {
   props: {
     field: Object,
@@ -42,20 +43,25 @@ export default {
     invalidFeedback: String,
     withoutLabel: Boolean,
   },
+  data () {
+    return {
+      changes: 0,
+    };
+  },
   methods: {
     updateAvatar(avatar) {
       this.value.attributes.avatar = avatar;
     },
     getValue(object, key) {
+      this.changes;
       return get(object, key);
     },
     setValue(object, key, value) {
       set(object, key, value);
+      this.changes++;
     },
   },
 }
 </script>
-
 <style>
-
 </style>
