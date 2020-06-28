@@ -46,7 +46,7 @@ context('ABM de Riesgos', () => {
         cy.get('[data-cy="tabla.row.remove"]').click();
         cy.si();
         cy.wait('@api_delete');
-        // Verificar que fue modificado
+        // Verificar que fue eliminado
         cy.buscarEnTabla('modificado');
         cy.get('[data-cy="tabla.table"]').find('tbody tr').should('have.length', 0);
     })

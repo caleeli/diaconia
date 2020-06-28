@@ -11,7 +11,7 @@ $factory->define(Respuesta::class, function (Faker $faker) {
         'clasificacion' => $faker->name(),
         'observacion' => $faker->sentence(),
         'tipo_observacion' => $faker->randomElement(['CA','CI']),
-        'riesgo_adicional_id' => $faker->randomElement(['RA','CI']),
+        'riesgo_adicional_id' => $faker->randomElement([1, 2]),
         'tipo_credito' => $faker->randomElement(['Individual','Comunitario']),
         'calidad' => $faker->randomElement(['PRELIMINAL','FINAL']),
     ];
