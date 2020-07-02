@@ -30,6 +30,24 @@ class RolesSeeder extends Seeder
             'icon' => 'fas fa-user-tie',
             'variant' => 'info',
         ]);
+
+        $tareas = $administrador->createMenu([
+            'code' => 'tareas',
+            'name' => 'Tareas',
+            'path' => '',
+            'icon' => 'fas fa-tasks',
+            'variant' => 'info',
+        ]);
+
+        $administrador->createMenu([
+            'parent' => $tareas->getKey(),
+            'code' => 'todas',
+            'name' => 'Todas',
+            'path' => '/todas',
+            'icon' => 'fas fa-clipboard-list',
+            'variant' => 'info',
+        ]);
+
         $configuracion = $administrador->createMenu([
             'code' => 'configuracion',
             'name' => 'Configuración',
@@ -78,14 +96,38 @@ class RolesSeeder extends Seeder
             'role' => 'Auditores',
         ]);
 
+        $tareas = $auditor->createMenu([
+            'code' => 'tareas',
+            'name' => 'Tareas',
+            'path' => '',
+            'icon' => 'fas fa-tasks',
+            'variant' => 'info',
+        ]);
+
         // Supervisores Role
         $supervisor = Role::create([
             'role' => 'Supervisores',
         ]);
 
+        $tareas = $supervisor->createMenu([
+            'code' => 'tareas',
+            'name' => 'Tareas',
+            'path' => '',
+            'icon' => 'fas fa-tasks',
+            'variant' => 'info',
+        ]);
+
         // Autorizadores Role
         $autorizador = Role::create([
             'role' => 'Autorizadores',
+        ]);
+
+        $tareas = $autorizador->createMenu([
+            'code' => 'tareas',
+            'name' => 'Tareas',
+            'path' => '',
+            'icon' => 'fas fa-tasks',
+            'variant' => 'info',
         ]);
     }
 }
