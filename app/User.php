@@ -12,6 +12,7 @@ use Laravel\Passport\HasApiTokens;
 
 /**
  * @property Role $roleObject
+ * @property Tarea $tareas
  */
 class User extends Authenticatable
 {
@@ -74,8 +75,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function Tareas()
+    public function tareas()
     {
-        return $this->belongsToMany('App\Tareas');
+        return $this->belongsToMany(Tarea::class, 'tarea_usuario');
     }
 }

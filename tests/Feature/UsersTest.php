@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Tarea;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Passport\Passport;
@@ -47,5 +48,27 @@ class UsersTest extends TestCase
         $json = $response->json();
         $this->assertArrayHasKey('errors', $json);
         $this->assertArrayHasKey('name', $json['errors']);
+    }
+
+    /**
+     * Probar tareas de usuarios
+     *
+     */
+    public function test_obtener_tareas_del_usuario()
+    {
+        // Popula una base de datos de prueba
+        $this->artisan('migrate:fresh', ['--seed' => true]);
+        // Obtiene las tareas de usuario 1
+        $user = User::find(1);
+        $tareas =  $user->tareas;
+        // Assertion: Se verifica que el resultado es un array de tareas
+        $this->assertContainsOnlyInstancesOf(Tarea::class, $tareas);
+
+        // Obtiene los usuarios de la tarea
+        $tarea = $tareas[0];
+        $users = $tarea->users;
+        // Assertion: Se verifica que la tarea tiene un unico usuario asignado
+        $this->assertCount(1, $users);
+        $this->assertEquals($user->id, $users[0]->id);
     }
 }
