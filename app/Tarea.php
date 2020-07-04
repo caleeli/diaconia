@@ -3,14 +3,18 @@
 namespace App;
 
 use App\Traits\ModelValidation;
-use App\User;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use JDD\Api\Traits\AjaxFilterTrait;
 
-class Tareas extends Model
+/**
+ * @method static Tarea find($id)
+ * 
+ */
+class Tarea extends Model
 {
     use ModelValidation;
+    use AjaxFilterTrait;
 
     protected $table = 'tareas';
     protected $casts = [
@@ -19,15 +23,18 @@ class Tareas extends Model
         'vencimiento' => 'datetime'
     ];
     protected $fillable = ['nombre', 'entregable', 'entregable_fecha', 'vencimiento', 'estado', 'creador_id'];
+
     public function Users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'tarea_usuario');
     }
+
     public function todosUsuarios()
     {
         $result = User::pluck('id')->toArray();
         return $result;
     }
+
     public function setEntregableAttribute($value)
     {
         if (!empty($value)) {
@@ -39,6 +46,7 @@ class Tareas extends Model
             $this->attributes['entregable'] = $value;
         }
     }
+
     public function validation()
     {
         return [

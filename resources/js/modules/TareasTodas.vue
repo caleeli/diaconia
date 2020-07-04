@@ -13,7 +13,7 @@
       :form-fields="formFields"
       :api="api"
       :title="__('TareasTodas')"
-      :search-in="['attributes.valor', 'attributes.descripcion']"
+      :search-in="['attributes.nombre']"
     >
       <template v-slot:cell(attributes.entregable)="data">
         <a

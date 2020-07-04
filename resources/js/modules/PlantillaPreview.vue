@@ -81,24 +81,6 @@ export default {
       plantilla: this.$api.plantilla.row(this.$route.params.id),
       preguntas: this.$api[`plantilla/${this.$route.params.id}/preguntas`].array({ per_page: -1, sort:'grupo,indice' }),
       api: this.$api[`plantilla/${this.$route.params.id}/preguntas`],
-      fields: [
-        //{key:'attributes.grupo', label: 'Grupo'},
-        {key:'attributes.indice', label: 'Índice'},
-        {key:'attributes.descripcion', label: 'Detalle'},
-        {key:'respuesta', label: 'Revisión', extra: true},
-        {key:'clasificacion', label: 'Clasificación', extra: true},
-        {key:"observacion", label: "Observacion", extra: true},
-        {key:"tipo_observacion", label: "Tipo observacion", extra: true},
-        {key:"riesgo_adicional_id", label: "Riesgo adicional/control int.", extra: true},
-        //{key:"relationships.pregunta.plantilla_id", label: "tipo_credito"},
-        //{key:"attributes.informe", label: "informe"},
-        //{key:"attributes.carpeta_id", label: "prmprnpre"}
-      ],
-      formFields: [
-        {key:'attributes.grupo', label: 'Grupo', create: true, edit: true },
-        {key:'attributes.indice', label: 'Índice', create: true, edit: true },
-        {key:'attributes.descripcion', label: 'Descripción', create: true, edit: true },
-      ],
     };
   },
   methods: {

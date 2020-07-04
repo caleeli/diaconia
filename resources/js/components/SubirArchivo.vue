@@ -19,12 +19,9 @@ export default {
         return this.value;
       },
       set(archivo) {
-        this.$emit("change", archivo);
+        this.$emit("change", typeof archivo === 'string' ? JSON.parse(archivo) : archivo);
       }
     },
-    info() {
-      return this.archivo;
-    }
   }
 };
 </script>

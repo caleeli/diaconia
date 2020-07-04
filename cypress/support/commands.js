@@ -119,3 +119,18 @@ Cypress.Commands.add('guardarEnLinea', (selector, tipo = '@api_put') => {
     cy.get(selector).click();
     cy.wait(tipo);
 });
+Cypress.Commands.add('subirArchivo', { prevSubject: true }, (subject, fileUrl, type) => {
+    cy.get(subject).find('input[type=file]').then(function (el) {
+        cy.uploadFile(el, fileUrl, type).then(() => {
+            el[0].dispatchEvent(new Event('change', { bubbles: true }));
+        });
+    });
+});
+/**
+ * fechaHora en formato ISO
+ */
+Cypress.Commands.add('fechaHora', { prevSubject: true }, (subject, fechaHora) => {
+    subject.each((index, node) => {
+        node.__vue__.$emit('change', fechaHora);
+    })
+});
