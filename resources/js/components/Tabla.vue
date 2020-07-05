@@ -258,6 +258,7 @@ export default {
       }
     },
     loadData() {
+      this.value.splice(0);
       this.api.index(this.params, this.value).then(response => {
         this.meta = response.data.meta;
         if (this.meta.page) this.page = this.meta.page;
