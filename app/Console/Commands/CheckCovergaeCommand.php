@@ -67,7 +67,8 @@ class CheckCovergaeCommand extends Command
         foreach ($percentages as $index => $p) {
             $nameTd = $names->item($index);
             $value = trim($p->textContent);
-            if ($value !=='n/a' && $this->isFile($nameTd)) {
+            $floatValue = floatval($value);
+            if ($value !=='n/a' && $this->isFile($nameTd) && $floatValue < 100) {
                 $name = 'app/' . substr($file, 9, -10) . trim($nameTd->textContent);
                 $this->info("$name -> $value");
             } elseif ($this->isDir($nameTd)) {
@@ -90,7 +91,8 @@ class CheckCovergaeCommand extends Command
         foreach ($percentages as $index => $p) {
             $nameTd = $names->item($index);
             $value = trim($p->textContent);
-            if ($value !=='n/a' && strpos($nameTd->textContent, '.') !== false) {
+            $floatValue = floatval($value);
+            if ($value !=='n/a' && strpos($nameTd->textContent, '.') !== false && $floatValue < 100) {
                 $name = 'resources/' . substr($file, 21, -10) . trim($nameTd->textContent);
                 $this->info("$name -> $value");
             }
