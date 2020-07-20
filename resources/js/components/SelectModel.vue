@@ -9,14 +9,6 @@
     :filter-by="textField"
     :rows="10"
   >
-    <template slot-scope="{ row, remove, format }">
-      <span v-if="remove">
-        {{ row.attributes.valor }}
-      </span>
-      <span v-else>
-        <span v-html="format(text(row))"></span>
-      </span>
-    </template>
   </d-select>
   <b-form-select v-else
     v-model="model"
@@ -58,11 +50,6 @@ export default {
     return {
       data2: this.data || this.api.array({per_page: 1000}),
     };
-  },
-  methods: {
-    text(row) {
-      return get(row, this.textField);
-    },
   },
 }
 </script>

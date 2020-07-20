@@ -4,6 +4,7 @@
     split
     split-variant="outline-secondary"
     split-class="p-0 overflow-hidden"
+    toggle-class="d-select-toggle"
     variant="outline-secondary"
     text="Split Variant Dropdown"
     class="d-select w-100"
@@ -16,7 +17,7 @@
       :key="`dselect-${index}`"
       @click="select(row)"
     >
-      <div >{{ getText(row) }}</div>
+      {{ getText(row) }}
     </b-dropdown-item>
   </b-dropdown>
 </template>
@@ -79,9 +80,10 @@ export default {
       this.$refs.dropdown.visibleChangePrevented = true;
       this.$refs.dropdown.visible = true;
     },
+    /* istanbul ignore next */
     loadData() {
-      console.log(this.text, this);
-      this.params.filter = [`whereAjaxFilter,${JSON.stringify(this.text)},${this.searchIn.join(',')}`];
+      const searchIn = this.searchIn || [this.textField];
+      this.params.filter = [`whereAjaxFilter,${JSON.stringify(this.text)},${searchIn.join(',')}`];
       this.api.refresh(this.data, this.params);
     },
     find() {
@@ -115,5 +117,8 @@ export default {
 }
 .d-select input.non-selected {
   font-style: italic;
+}
+.d-select-toggle {
+  flex: initial !important;
 }
 </style>
