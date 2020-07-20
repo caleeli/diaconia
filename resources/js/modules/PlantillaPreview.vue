@@ -32,6 +32,7 @@
           <b-td v-if="pregunta.attributes.indice">
             <select-model
               :data="clasificaciones"
+              :api="clasificacionesApi"
               v-model="pregunta.clasificacion"
               data-cy="pregunta.clasificacion"
               searchable
@@ -75,7 +76,8 @@ export default {
     return {
       revisiones: this.$api.combo_revision.array({per_page: 1000}),
       riesgos: this.$api.riesgos.array({per_page: 1000}),
-      clasificaciones: this.$api.clasificaciones.array({per_page: 1000}),
+      clasificaciones: [],
+      clasificacionesApi: this.$api.clasificaciones,
       tipo_informes: this.$api.combo_tipo_informe.array({per_page: 1000}),
       riesgos: this.$api.riesgos.array({per_page: 1000}),
       plantilla: this.$api.plantilla.row(this.$route.params.id),

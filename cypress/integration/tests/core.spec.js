@@ -40,4 +40,10 @@ context('Core tests', () => {
 
     })
 
+    it('D-Select', () => {
+        cy.visit('/home#/core');
+        cy.get('[data-cy="core-d-select"] input').clear().type('admin');
+        cy.get('[data-cy="core-d-select"] a:contains("admin")').click();
+    })
+
 })

@@ -1,20 +1,15 @@
 <template>
-  <select-box v-if="searchable"
+  <d-select v-if="searchable"
     v-model="model"
-    :data="data2"
+    :data="data"
     :id-field="idField"
+    :text-field="textField"
+    :search-in="[textField]"
+    :api="api"
     :filter-by="textField"
     :rows="10"
   >
-    <template slot-scope="{ row, remove, format }">
-      <span v-if="remove">
-        {{ row.attributes.valor }}
-      </span>
-      <span v-else>
-        <span v-html="format(text(row))"></span>
-      </span>
-    </template>
-  </select-box>
+  </d-select>
   <b-form-select v-else
     v-model="model"
     :options="data2"
@@ -55,11 +50,6 @@ export default {
     return {
       data2: this.data || this.api.array({per_page: 1000}),
     };
-  },
-  methods: {
-    text(row) {
-      return get(row, this.textField);
-    },
   },
 }
 </script>

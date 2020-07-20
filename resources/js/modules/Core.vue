@@ -7,6 +7,7 @@
     <div>Invalid: {{ __(null) }}</div>
     <div>Parameters: {{ __('validation.string', {attribute: 'field'}) }}</div>
     <b-button @click="checkFormulario" data-cy="check.form">form</b-button>
+    <d-select :api="api" text-field="attributes.name" data-cy="core-d-select" />
     <modal-form
       id="changePassword"
       title="Cambiar contraseña"
