@@ -49,6 +49,8 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.15.0",
+        "gantt-elastic": "^1.0.11",
+        "gantt-elastic-header": "^0.1.11",
         "vfa-picker": "^5.9.1"
     }
 }

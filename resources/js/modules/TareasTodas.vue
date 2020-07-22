@@ -1,9 +1,9 @@
 <template>
-  <panel :name="__('TareasTodas')" class="panel-secondary">
+  <panel :name="__('Todas')" class="panel-secondary">
     <template slot="header">
       <title-bar />
       <i class="fa fa-sucursales"></i>
-      {{ __('TareasTodas') }}
+      {{ __('Todas') }}
     </template>
     <template slot="actions">
       <nav-bar />
@@ -12,7 +12,7 @@
       :fields="fields"
       :form-fields="formFields"
       :api="api"
-      :title="__('TareasTodas')"
+      :title="__('Todas')"
       :search-in="['attributes.nombre']"
     >
       <template v-slot:cell(attributes.entregable)="data">
@@ -42,8 +42,8 @@
 <script>
 import moment from "moment";
 export default {
-  name: "TareasTodas",
-  path: "/todas",
+  name: "Todas",
+  path: "/tareas/todas",
   mixins: [window.ResourceMixin],
   data() {
     return {

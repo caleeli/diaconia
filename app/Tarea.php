@@ -26,7 +26,7 @@ class Tarea extends Model
 
     public function Users()
     {
-        return $this->belongsToMany('App\User', 'tarea_usuario');
+        return $this->belongsToMany('App\User', 'tarea_usuario')->withTimestamps();
     }
 
     public function todosUsuarios()
@@ -54,5 +54,25 @@ class Tarea extends Model
             'estado' => 'required',
             'creador_id' => 'required',
         ];
+    }
+
+    public static function datosGantt()
+    {
+        $tareas = Tarea::with('users')->get();
+        $lista = [];
+        foreach ($tareas as $tarea) foreach ($tarea->users as $user) {
+            $lista[] = [
+                'id' => $tarea->id,
+                'nombre' => $tarea->nombre,
+                'usuario' => $user->name,
+                'entregable' => $tarea->entregable,
+                'entregable_fecha' => $tarea->entregable_fecha,
+                'vencimiento' => $tarea->vencimiento,
+                'estado' => $tarea->estado,
+                'creador_id' => $tarea->creador_id,
+                'fecha' => $user->pivot->created_at,
+            ];
+        }
+        return $lista;
     }
 }
