@@ -72,4 +72,20 @@ class TareasTest extends TestCase
         $this->assertNotEmpty($tarea->entregable_fecha);
         $this->assertIsArray($tarea->entregable);
     }
+
+    /**
+     * Prueba el método datosGantt
+     * 
+     */
+    public function test_probar_el_metodo_datos_gantt()
+    {
+        // Popula una base de datos de prueba
+        $this->artisan('migrate:fresh', ['--seed' => true]);
+        // Crea el objeto tarea
+        $tarea = new Tarea();
+        // Llamam al método datosGantt
+        $resultado = $tarea->datosGantt();
+        // Verificar que el resultado sea un arreglo
+        $this->assertIsArray($resultado);
+    }
 }

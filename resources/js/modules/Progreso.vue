@@ -49,7 +49,7 @@ export default {
         maxRows: 100,
         maxHeight: "100%",
         title: {
-          label: "Your project title as html (link or whatever...)",
+          label: "El título del proyecto como html (el link o lo que sea...)",
           html: false
         },
         row: {
@@ -124,25 +124,25 @@ export default {
           name: "es", // name String
           weekdays: "Domingo Lunes Martes Miercoles Jueves Viernes Sabado".split(
             " "
-          ), // weekdays Array
-          weekdaysShort: "Dom Lun Mar Mie Jue Vie Sab".split(" "), // OPTIONAL, short weekdays Array, use first three letters if not provided
-          weekdaysMin: "Do Lu Ma Mi Ju Vi Sa".split(" "), // OPTIONAL, min weekdays Array, use first two letters if not provided
+          ), // días de la semana
+          weekdaysShort: "Dom Lun Mar Mie Jue Vie Sab".split(" "), // OPCIONAL, arreglo corto de los días de la semana, use las primeras tres letras si no se ha proporcionado
+          weekdaysMin: "Do Lu Ma Mi Ju Vi Sa".split(" "), // OPCIONAL, arreglo mínima de lunes a viernes, use las dos primeras letras si no ha sido proporcionada
           months: "Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre".split(
             " "
-          ), // months Array
+          ), // arreglo de meses
           monthsShort: "Ene Feb Mar Abr May Jun Jul Ago Sep Oct Nov Dic".split(
             " "
-          ), // OPTIONAL, short months Array, use first three letters if not provided
-          ordinal: n => `${n}`, // ordinal Function (number) => return number + output
+          ), // OPCIONAL, arreglo de meses cortos, use las primeras tres letras si no han sido proporcionados
+          ordinal: n => `${n}`, // Función ordinal (number) => return number + output
           relativeTime: {
-            // relative time format strings, keep %s %d as the same
-            future: "za %s", // e.g. in 2 hours, %s been replaced with 2hours
+            // cadenas en formato de tiempo relativo, mantienen %s %d como lo mismo
+            future: "za %s", // p.ej. en 2 horas,%s ha sido reemplazado por 2 horas
             past: "%s temu",
             s: "kilka sekund",
             m: "minutę",
             mm: "%d minut",
             h: "godzinę",
-            hh: "%d godzin", // e.g. 2 hours, %d been replaced with 2
+            hh: "%d godzin", // p.ej. 2 horas,%d ha sido reemplazado por 2
             d: "dzień",
             dd: "%d dni",
             M: "miesiąc",
