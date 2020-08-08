@@ -8,7 +8,7 @@
     <template slot="actions">
       <nav-bar />
     </template>
-    <gantt-elastic :tasks="tasks" :options="options" :dynamic-style="dynamicStyle"></gantt-elastic>
+    <gantt-elastic :tasks="tasks" :options="options" :dynamic-style="dynamicStyle" data-cy="gantt"></gantt-elastic>
   </panel>
 </template>
 
@@ -194,11 +194,7 @@ export default {
             1000,
           progress: 0,
           vencimiento:
-            new Date(item.vencimiento).getFullYear() +
-            "-" +
-            new Date(item.vencimiento).getMonth() +
-            "-" +
-            new Date(item.vencimiento).getDate(),
+            moment(item.vencimiento).format("YYYY-MM-DD"),
           type: type,
           collapsed: collapsed,
           style: {
