@@ -43,8 +43,17 @@ class RolesSeeder extends Seeder
             'parent' => $tareas->getKey(),
             'code' => 'todas',
             'name' => 'Todas',
-            'path' => '/todas',
+            'path' => '/tareas/todas',
             'icon' => 'fas fa-clipboard-list',
+            'variant' => 'info',
+        ]);
+
+        $administrador->createMenu([
+            'parent' => $tareas->getKey(),
+            'code' => 'progreso',
+            'name' => 'Progreso',
+            'path' => '/tareas/progreso',
+            'icon' => 'fas fa-spinner',
             'variant' => 'info',
         ]);
 
