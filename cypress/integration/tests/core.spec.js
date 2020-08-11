@@ -1,5 +1,10 @@
 
 context('Core tests', () => {
+    
+    before(() => {
+        cy.exec('php artisan db:seed --class=PlantillasSeeder');
+    });
+
     beforeEach(() => {
         cy.login('admin@coredump.com', 'admin');
     })
