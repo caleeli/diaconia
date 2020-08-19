@@ -15,7 +15,7 @@ class TareasSeeder extends Seeder
     {
         Tarea::insert([
             ['nombre' => 'Tarea 1','entregable' => '{"name":"archivo.txt","url":"https://homepages.cae.wisc.edu/~ece533/images/cat.png","mime":"image/png","path":"https://homepages.cae.wisc.edu/~ece533/images/cat.png"}', 'entregable_fecha' => Carbon::now(), 'vencimiento' => '2020-08-22', 'estado' => 'estado 1', 'creador_id' => '1'],
-            ['nombre' => 'Tarea 2','entregable' => null, 'entregable_fecha' => null, 'vencimiento' => '2020-08-22', 'estado' => 'estado 2', 'creador_id' => '1'],
+            ['nombre' => 'Tarea 2','entregable' => null, 'entregable_fecha' => null, 'vencimiento' => date('Y-m-d H:i:s'), 'estado' => 'estado 2', 'creador_id' => '1'],
             ['nombre' => 'Tarea 3','entregable' => null, 'entregable_fecha' => null, 'vencimiento' => '2020-08-22', 'estado' => 'estado 3', 'creador_id' => '1'],
             ['nombre' => 'Tarea 4','entregable' => null, 'entregable_fecha' => null, 'vencimiento' => '2020-08-22', 'estado' => 'estado 4', 'creador_id' => '2'],
             ['nombre' => 'Tarea 5','entregable' => null, 'entregable_fecha' => null, 'vencimiento' => '2020-08-22', 'estado' => 'estado 5', 'creador_id' => '2'],

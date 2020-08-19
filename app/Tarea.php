@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Alertas;
 use App\Traits\ModelValidation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -74,5 +75,19 @@ class Tarea extends Model
             ];
         }
         return $lista;
+    }
+
+    public static function tareasRiesgo()
+    {
+        $tareas = Tarea::with('users')->where('vencimiento', '>=', date('Y-m-d 00:00:00'))
+            ->where('vencimiento', '<=', date('Y-m-d 23:59:59'))
+            ->get();
+        foreach ($tareas as $tarea) foreach ($tarea->users as $user) {
+
+            $text = "La tarea " . $tarea->nombre . " vence el día de hoy!!!";
+            Alertas::insert([
+                ['texto' => $text, 'user_id' => $user->id],
+            ]);
+        }
     }
 }
