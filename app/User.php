@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role', 'role');
     }
 
+    public function alertas()
+    {
+        return $this->hasMany('App\Alerta');
+    }
+
     public function validation()
     {
         return [

@@ -15,7 +15,7 @@ class CreateAlertasTable extends Migration
     {
         Schema::create('alertas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->longText('texto');
+            $table->longText('texto')->nullable();
             $table->BigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Alerta;
 use App\Tarea;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -87,5 +88,25 @@ class TareasTest extends TestCase
         $resultado = $tarea->datosGantt();
         // Verificar que el resultado sea un arreglo
         $this->assertIsArray($resultado);
+    }
+
+    /**
+     * Prueba el método tareasRiesgo
+     * 
+     */
+    public function test_probar_el_metodo_tareas_riesgo()
+    {
+        // Popula una base de datos de prueba
+        $this->artisan('migrate:fresh', ['--seed' => true]);
+        // Crea el objeto tarea
+        $tarea = new Tarea();
+        // Llamam al método tareasRiesgo
+        $tarea->tareasRiesgo();
+
+        // Obtenerlas alertas creadas
+        $alertas = Alerta::get();
+
+        // Verificar si se ha creado la alerta correspondiente
+        $this->assertCount(1, $alertas);
     }
 }
