@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Alerta;
 use App\Traits\ModelValidation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -79,14 +78,15 @@ class Tarea extends Model
 
     public static function tareasRiesgo()
     {
-        $tareas = Tarea::with('users')->where('vencimiento', '>=', date('Y-m-d 00:00:00'))
-            ->where('vencimiento', '<=', date('Y-m-d 23:59:59'))
+        $tareas = Tarea::with('users')->where('vencimiento', '>=', Carbon::now()->format('Y-m-d 00:00:00'))
+            ->where('vencimiento', '<=', Carbon::now()->format('Y-m-d 23:59:59'))
             ->get();
+
         foreach ($tareas as $tarea) foreach ($tarea->users as $user) {
             $text = "La tarea " . $tarea->nombre . " vence el día de hoy!!!";
-            $user->alertas()->create([
+            $user->alertas()->create(
                 ['texto' => $text],
-            ]);
+            );
         }
     }
 }

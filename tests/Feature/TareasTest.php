@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Alerta;
 use App\Tarea;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Validation\ValidationException;
 use Tests\TestCase;
@@ -25,7 +26,7 @@ class TareasTest extends TestCase
         // Popula una base de datos de prueba
         $this->artisan('migrate:fresh', ['--seed' => true]);
         $tarea = Tarea::find(1);
-        
+
         $count = User::count();
 
         $this->assertCount($count, $tarea->todosUsuarios());
@@ -98,12 +99,25 @@ class TareasTest extends TestCase
     {
         // Popula una base de datos de prueba
         $this->artisan('migrate:fresh', ['--seed' => true]);
-        // Crea el objeto tarea
+
+        // Crea una tarea con fecha de vencimiento actual
         $tarea = new Tarea();
-        // Llamam al método tareasRiesgo
+        $tarea->nombre = 'Prueba X';
+        $tarea->estado = 'pendiente';
+        $tarea->vencimiento =  Carbon::now()->format('Y-m-d 11:00:00');
+        $tarea->creador_id = 1;
+        $tarea->entregable = ['name' => 'entregable.png', 'mime' => 'image/png'];
+        $tarea->save();
+
+        // Añada un usuario a la tarea
+        $tarea->users()->sync(array(
+            1 => array('responsabilidad' => 'admin'),
+        ));
+
+        // Llamar al método tareasRiesgo
         $tarea->tareasRiesgo();
 
-        // Obtenerlas alertas creadas
+        // Obtener las alertas creadas
         $alertas = Alerta::get();
 
         // Verificar si se ha creado la alerta correspondiente
