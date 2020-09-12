@@ -18,6 +18,7 @@ class CreateAlertasTable extends Migration
             $table->longText('texto')->nullable();
             $table->BigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

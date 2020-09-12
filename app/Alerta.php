@@ -16,4 +16,10 @@ class Alerta extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function cambiarEstadoFalse($alertaId)
+    {
+        $this->estado = false;
+        $this->save();
+    }
 }
