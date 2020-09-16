@@ -13,14 +13,14 @@ class AlertasSeeder extends Seeder
     public function run()
     {
         Alerta::insert([
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
-            ['texto' => 'Some text', 'user_id' => '1', 'estado' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
+            ['texto' => 'Some text', 'user_id' => '1', 'no_leido' => true],
         ]);
     }
 }

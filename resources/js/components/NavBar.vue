@@ -66,7 +66,7 @@ export default {
     mixins: [window.ResourceMixin],
   data() {
     return {
-      alertas: this.$api[`user/${window.userId}/alertas`].array({filter: ['where,estado,1']}),
+      alertas: this.$api[`user/${window.userId}/alertas`].array({filter: ['where,no_leido,1']}),
     };
   },
   methods: {
@@ -89,8 +89,8 @@ export default {
       return get(row, this.textField)
     },
     select(row) {
-     this.$api.alerta.call(row.id, "cambiarEstadoFalse", {}).then(response => {
-        this.$api[`user/${window.userId}/alertas`].refresh(this.alertas, {filter:['where,estado,1']});
+     this.$api.alerta.call(row.id, "cambiarNoLeidoFalse", {}).then(response => {
+        this.$api[`user/${window.userId}/alertas`].refresh(this.alertas, {filter:['where,no_leido,1']});
       });
     },
   },

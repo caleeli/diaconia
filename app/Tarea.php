@@ -85,7 +85,7 @@ class Tarea extends Model
         foreach ($tareas as $tarea) foreach ($tarea->users as $user) {
             $text = "La tarea " . $tarea->nombre . " vence el día de hoy!!!";
             $user->alertas()->create(
-                ['texto' => $text],
+                ['no_leido' => true, 'texto' => $text],
             );
         }
     }

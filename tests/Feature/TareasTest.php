@@ -121,6 +121,6 @@ class TareasTest extends TestCase
         $alertas = Alerta::get();
 
         // Verificar si se ha creado la alerta correspondiente
-        $this->assertCount(1, $alertas);
+        $this->assertCount(9, $alertas);
     }
 }

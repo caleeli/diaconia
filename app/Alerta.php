@@ -8,8 +8,11 @@ class Alerta extends Model
 {
     protected $table = 'alertas';
     protected $primaryKey = 'id';
+    protected $casts = [
+        'no_leido' => 'bool',
+    ];
     protected $fillable = [
-        'texto', 'user_id',
+        'texto', 'user_id', 'no_leido'
     ];
 
     public function user()
@@ -17,9 +20,9 @@ class Alerta extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function cambiarEstadoFalse($alertaId)
+    public function cambiarNoLeidoFalse()
     {
-        $this->estado = false;
+        $this->no_leido = false;
         $this->save();
     }
 }
