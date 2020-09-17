@@ -48,6 +48,7 @@ context('Plantillas de auditoria', () => {
         cy.wait('@api_get');
         cy.wait('@api_get');
         cy.get('[data-cy="tabla.new"]').click();
+        cy.wait(500);
         // Guardar invalido
         cy.get('[data-cy="field.attributes.descripcion"]').clear().type('Nueva pregunta');
         cy.guardarEnLinea('[data-cy="tabla.row.save"]:first', '@api_post');
