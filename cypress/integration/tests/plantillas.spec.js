@@ -2,7 +2,7 @@
 context('Plantillas de auditoria', () => {
     
     before(() => {
-        cy.exec('php artisan db:seed --class=PlantillasSeeder');
+        cy.exec('php artisan db:seed --class=PlantillasSeeder', {timeout:1200000});
     });
 
     beforeEach(() => {
@@ -47,8 +47,10 @@ context('Plantillas de auditoria', () => {
         cy.get('[data-cy="tabla.row.preguntas"]:first').click();
         cy.wait('@api_get');
         cy.wait('@api_get');
+        cy.wait('@api_get');
+        cy.wait('@api_get');
+        cy.wait('@api_get');
         cy.get('[data-cy="tabla.new"]').click();
-        cy.wait(500);
         // Guardar invalido
         cy.get('[data-cy="field.attributes.descripcion"]').clear().type('Nueva pregunta');
         cy.guardarEnLinea('[data-cy="tabla.row.save"]:first', '@api_post');
