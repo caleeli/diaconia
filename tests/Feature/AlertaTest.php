@@ -29,5 +29,8 @@ class AlertaTest extends TestCase
         $alerta = Alerta::find(1);
         // La alerta ya fue leída
         $this->assertFalse($alerta->no_leido);
+
+        // Verifica que la alerta tiene un usuario asignado
+        $this->assertNotNull($alerta->user);
     }
 }
