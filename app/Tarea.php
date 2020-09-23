@@ -75,4 +75,18 @@ class Tarea extends Model
         }
         return $lista;
     }
+
+    public static function tareasRiesgo()
+    {
+        $tareas = Tarea::with('users')->where('vencimiento', '>=', Carbon::now()->format('Y-m-d 00:00:00'))
+            ->where('vencimiento', '<=', Carbon::now()->format('Y-m-d 23:59:59'))
+            ->get();
+
+        foreach ($tareas as $tarea) foreach ($tarea->users as $user) {
+            $text = "La tarea " . $tarea->nombre . " vence el día de hoy!!!";
+            $user->alertas()->create(
+                ['no_leido' => true, 'texto' => $text],
+            );
+        }
+    }
 }

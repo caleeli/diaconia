@@ -34,10 +34,19 @@
         </b-dropdown>
       </template>
     </div>
-    <b-button class="mr-2" :variant="isEnabled() ? 'primary' : 'outline-primary'" data-cy="navbar.notifications" @click="requestNotificationAccess">
-      <i v-if="isEnabled()" class="fas fa-bell"></i>
-      <i v-else class="fas fa-bell-slash"></i>
-    </b-button>
+    <b-dropdown split class="mr-2" variant="outline-primary" data-cy="navbar.notifications">
+      <template v-slot:button-content>
+        <i class="fas fa-bell"></i>
+        <b-badge variant="warning">{{alertas.length}}</b-badge>
+      </template>
+      <b-dropdown-item
+        v-for="(row, index) in alertas"
+        :key="`dselect-${index}`"
+        @click="select(row)"
+        >
+        {{ row.attributes.texto }}
+      </b-dropdown-item>
+    </b-dropdown>
     <form class="m-0" action="/logout" method="post">
     <div class="btn-group" role="group">
       <router-link v-if="$root.user.attributes" to="/profile" data-cy="navbar.profile" class="btn btn-outline-secondary text-nowrap pr-4">
@@ -52,27 +61,18 @@
 </template>
 
 <script>
+import { get, debounce } from 'lodash';
 export default {
+    mixins: [window.ResourceMixin],
   data() {
     return {
-      notificationRequest: Notification.permission,
-      enableNotifications: window.localStorage.enableNotifications,
+      alertas: this.$api[`user/${window.userId}/alertas`].array({filter: ['where,no_leido,1']}),
     };
   },
   methods: {
-    isEnabled() {
-      return this.enableNotifications && this.notificationRequest;
-    },
-    requestNotificationAccess() {
-      if (this.isEnabled()) {
-        window.localStorage.enableNotifications = '';
-      } else {
-        window.localStorage.enableNotifications = '1';
-      }
-      this.enableNotifications = window.localStorage.enableNotifications;
-      /* istanbul ignore next */
-      Vue.notification.requestPermission().then(() => {
-        this.notificationRequest = Notification.permission;
+    select(row) {
+     this.$api.alerta.call(row.id, "cambiarNoLeidoFalse", {}).then(response => {
+        this.$api[`user/${window.userId}/alertas`].refresh(this.alertas, {filter:['where,no_leido,1']});
       });
     },
   },

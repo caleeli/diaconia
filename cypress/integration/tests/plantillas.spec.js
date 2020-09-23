@@ -2,7 +2,7 @@
 context('Plantillas de auditoria', () => {
     
     before(() => {
-        cy.exec('php artisan db:seed --class=PlantillasSeeder');
+        cy.exec('php artisan db:seed --class=PlantillasSeeder', {timeout:1200000});
     });
 
     beforeEach(() => {
@@ -45,6 +45,9 @@ context('Plantillas de auditoria', () => {
 
     it('Agregar pregunta', () => {
         cy.get('[data-cy="tabla.row.preguntas"]:first').click();
+        cy.wait('@api_get');
+        cy.wait('@api_get');
+        cy.wait('@api_get');
         cy.wait('@api_get');
         cy.wait('@api_get');
         cy.get('[data-cy="tabla.new"]').click();
