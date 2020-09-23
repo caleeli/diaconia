@@ -70,24 +70,6 @@ export default {
     };
   },
   methods: {
-    isEnabled() {
-      return this.enableNotifications && this.notificationRequest;
-    },
-    requestNotificationAccess() {
-      if (this.isEnabled()) {
-        window.localStorage.enableNotifications = '';
-      } else {
-        window.localStorage.enableNotifications = '1';
-      }
-      this.enableNotifications = window.localStorage.enableNotifications;
-      /* istanbul ignore next */
-      Vue.notification.requestPermission().then(() => {
-        this.notificationRequest = Notification.permission;
-      });
-    },
-    getText(row) {
-      return get(row, this.textField)
-    },
     select(row) {
      this.$api.alerta.call(row.id, "cambiarNoLeidoFalse", {}).then(response => {
         this.$api[`user/${window.userId}/alertas`].refresh(this.alertas, {filter:['where,no_leido,1']});
