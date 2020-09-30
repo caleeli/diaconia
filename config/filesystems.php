@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'run_python' => [
+            'driver' => 'local',
+            'root' => storage_path('run_python'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

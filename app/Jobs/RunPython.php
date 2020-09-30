@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class RunPython implements ShouldQueue
 {
@@ -40,5 +41,11 @@ class RunPython implements ShouldQueue
         //$objeto = ClaseObjeto::getInstanceById($this->objeto_id);
         //Mail::send(....);
         //file_put_contents($this->path, $body);
+    }
+
+    public function createInput($input)
+    {
+        $uniqueName = 'entrada.in';
+        Storage::disk('run_python')->put($uniqueName, json_encode($input));
     }
 }
