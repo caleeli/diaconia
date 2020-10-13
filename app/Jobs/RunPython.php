@@ -23,12 +23,11 @@ class RunPython implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($path, $objeto, $param2, User $user)
+    public function __construct($a, $b, $script)
     {
-        $this->path = $path;
-        $this->objeto_id = $objeto->id;
-        $this->param2 = $param2;
-        $this->user = $user;
+        $this->a = $a;
+        $this->b = $b;
+        $this->script = $script;
     }
 
     /**
@@ -38,14 +37,20 @@ class RunPython implements ShouldQueue
      */
     public function handle()
     {
-        //$objeto = ClaseObjeto::getInstanceById($this->objeto_id);
-        //Mail::send(....);
-        //file_put_contents($this->path, $body);
+        $this->createInput(['a' => $this->a, 'b' => $this->b]);
+        $this->callPythonScript();
     }
 
     public function createInput($input)
     {
         $uniqueName = 'entrada.in';
         Storage::disk('run_python')->put($uniqueName, json_encode($input));
+    }
+
+    public function callPythonScript()
+    {
+        $ruta_entrada = storage_path() . "\\run_python\\entrada.in";
+        $res = exec("python {$this->script}.py < {$ruta_entrada}", $arraySalida);
+        dump($res);
     }
 }
