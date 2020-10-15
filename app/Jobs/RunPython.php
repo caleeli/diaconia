@@ -13,21 +13,18 @@ class RunPython implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $path;
-    public $param1;
-    public $param2;
-    public $user;
+    public $script;
+    public $inputs;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($a, $b, $script)
+    public function __construct($script, ...$inputs)
     {
-        $this->a = $a;
-        $this->b = $b;
-        $this->script = $script;
+        $this->script = Storage::disk('python_scripts')->path($script);
+        $this->inputs = $inputs;
     }
 
     /**
@@ -37,20 +34,24 @@ class RunPython implements ShouldQueue
      */
     public function handle()
     {
-        $this->createInput(['a' => $this->a, 'b' => $this->b]);
-        $this->callPythonScript();
+        $this->createInput($this->inputs);
+        $res = $this->callPythonScript();
+        return $res;
     }
 
-    public function createInput($input)
+    private function createInput(array $inputs)
     {
         $uniqueName = 'entrada.in';
-        Storage::disk('run_python')->put($uniqueName, json_encode($input));
+        $content = array_reduce($inputs, function ($content, $item) {
+            return $content . json_encode($item) . "\n";
+        }, '');
+        Storage::disk('run_python')->put($uniqueName, $content);
     }
 
-    public function callPythonScript()
+    private function callPythonScript()
     {
-        $ruta_entrada = storage_path() . "\\run_python\\entrada.in";
+        $ruta_entrada = Storage::disk('run_python')->path('entrada.in');
         $res = exec("python {$this->script}.py < {$ruta_entrada}", $arraySalida);
-        dump($res);
+        return json_decode($res);
     }
 }
