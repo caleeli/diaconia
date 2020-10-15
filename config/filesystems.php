@@ -48,6 +48,11 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'python_scripts' => [
+            'driver' => 'local',
+            'root' => storage_path('python_scripts'),
+        ],
+
         'run_python' => [
             'driver' => 'local',
             'root' => storage_path('run_python'),
